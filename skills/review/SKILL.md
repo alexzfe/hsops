@@ -1,11 +1,11 @@
 ---
 name: review
-description: Review a homeserver in depth and return ranked recommendations across data safety, security, reliability, performance, efficiency, networking, maintainability and observability. Use when the user asks to review, audit, explore or optimize their homeserver, or asks about one dimension of it, such as "check my security" or "is it wasting power".
+description: Review a whole homeserver in depth with one agent per dimension, and return ranked recommendations across data safety, security, reliability, performance, efficiency, networking, maintainability and observability. Use when the user asks to review, audit, explore or optimize their whole homeserver, or asks about one dimension of it, such as "check my security" or "is it wasting power". For a fast look use quick-review; for recent changes use review-changes.
 ---
 
 # Review
 
-A deep look at one server: a shared snapshot, one reviewer per dimension, then recommendations merged and ranked by the user's priorities. Read `../../shared/conventions.md` (relative to this skill's directory) first and load the server's context, including the newest file in `servers/<server>/reviews/`.
+A deep look at one whole server: a shared snapshot, one reviewer per dimension, then recommendations merged and ranked by the user's priorities. Read `../../shared/conventions.md` (relative to this skill's directory) first and load the server's context, including the newest file in `servers/<server>/reviews/`.
 
 ## 1. Priorities
 
@@ -18,9 +18,8 @@ Save the answers to the profile.
 
 Then choose the dimensions:
 
-- a full review runs all eight in `references/dimensions/`
-- a request about one area runs that dimension only
-- otherwise, choose the dimensions the priorities point to.
+- a review of the whole server runs all eight in `references/dimensions/`, unless the user narrows it
+- a request about one area runs that dimension only.
 
 **Done when:** the priorities are saved and the dimensions are listed.
 

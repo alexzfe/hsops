@@ -86,4 +86,6 @@ Every choice above is flexible. These rules are not. A user may override one kno
 
 ## Closing a task
 
+When a task changed the server, not only the data folder, finish by running the `review-changes` skill, once per task.
+
 When a task hit a **surprise** (a cause that wasn't obvious, a step that failed and the fix, a fact the profile lacked, a preference the user stated), offer `/hsops:learn` in one line.

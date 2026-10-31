@@ -49,7 +49,7 @@ ECC still coordinates its reviewers for multi-angle reviews (`orch-review`). Its
 
 ## A separate `fix` skill, and no fixer agent
 
-**Decision:** carrying out review recommendations is its own skill, `fix`. The fixes run one at a time in the main session. Subagents only draft plans and verify (the `reviewer` agent's plan and verify modes), in parallel.
+**Decision:** carrying out review recommendations is its own skill, `fix`. The fixes run one at a time in the main session. Subagents only draft high-risk plans and verify (the `reviewer` agent's plan and verify modes), in parallel.
 
 **Why a separate skill:** by the rule above, it's triggered differently ("fix #6 and #7", "fix the open items") and knows different things: the plan → approval → run → check loop, the baseline and the review statuses. Review knows dimensions and merging.
 
@@ -61,6 +61,25 @@ ECC still coordinates its reviewers for multi-angle reviews (`orch-review`). Its
 - Parallel planning and parallel verifying already give most of the speed.
 
 **When to revisit:** a visible, separate pane per fixer (see the Herdr entry in ROADMAP.md) would answer the "hard to follow" problem, once the in-session version has proven itself.
+
+## Three review skills, and agents only where the risk is
+
+**Decision:**
+- `review` looks at the whole server with eight agents. `quick-review` takes one pass with no agents. `review-changes` starts one agent on what a task just changed.
+- A quick review appends to the newest review file instead of starting its own.
+- `fix` drafts plans in the main session, and uses plan agents and per-fix verify agents only for high-risk fixes.
+- The baseline runs after approval.
+- Every task that changes the server, in any skill, closes with `review-changes`. `review` never starts by itself.
+
+**Why separate skills:** by the rule above, each is triggered differently and knows different things: the dimensions and merging, a fixed checklist, and a look at one task's changes. The price is two more descriptions loaded in every session.
+
+**Why:** one tested fix batch of eight items spawned 30 agents and used more tokens than the full review that produced it (1.57M against 1.18M fresh input). Each plan agent cost about as much as a whole review dimension, and four of the eight plans were never carried out. A closing `review` on top would have repeated the same day's open items, and it couldn't confirm the scheduled jobs that hadn't run yet.
+
+**Why still review every change:** the session that made a change shouldn't be the only one to judge it. One agent starts from a clean context, so it reads the changes without the session's assumptions, and it replaces an end-of-batch verify agent per dimension.
+
+**Why append:** `fix` and the next review read only the newest file. A separate quick report would hide older open and declined items, and copying them forward costs more than the quick review saves.
+
+**The cost:** a regression from a low-risk fix may only show in the closing review, where it's harder to trace to one fix. The plans' Touches lists narrow it down. `quick-review` also skips tuning, power and long-term upkeep, which is why it names the dimensions it didn't cover. A plain "review my server" now starts the eight agents, so it stays the expensive path.
 
 ## The evidence hook forces facts instead of only matching hedge words
 

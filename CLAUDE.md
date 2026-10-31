@@ -1,9 +1,9 @@
 # hsops
 
-**Version:** 0.2.2 | **Port:** none (a plugin, not a server) | **Stack:** Markdown skills, Python 3 stdlib hooks, Claude Code and Codex plugin manifests
+**Version:** 0.3.0 | **Port:** none (a plugin, not a server) | **Stack:** Markdown skills, Python 3 stdlib hooks, Claude Code and Codex plugin manifests
 
 ## What
-hsops is a Claude Code and Codex plugin of homeserver skills: setup, deploy, diagnose, monitor, back up, review, fix and learn. Users install it from the marketplace. Contributors develop it from a clone. Nothing here runs as a service.
+hsops is a Claude Code and Codex plugin of homeserver skills: setup, deploy, diagnose, monitor, back up, review (whole server, quick and changes), fix and learn. Users install it from the marketplace. Contributors develop it from a clone. Nothing here runs as a service.
 
 ## Quick Start
 
@@ -38,7 +38,7 @@ No linter, coverage tool or build step is configured. Nothing needs compiling or
 .codex-plugin/      Codex manifest: plugin.json
 .agents/plugins/    Codex marketplace listing
 skills/             One folder per skill, each with SKILL.md; review/ and add-service/ add references/
-agents/reviewer.md  The one generic reviewer agent: review, plan and verify modes
+agents/reviewer.md  The one generic reviewer agent: review, plan, verify and changes modes
 hooks/              hooks.json wires guard.py and evidence.py into PreToolUse; _hook.py has shared helpers
 shared/             conventions.md (fixed rules, data folder), profile-template.md, user-template.md
 tests/              run.py (hook tests), guard-cases.txt (expected guard decision per command)
@@ -56,7 +56,8 @@ Skills are prompts that Claude follows, not code. The only executed code is the 
 - `hooks/_hook.py`: payload parsing, decisions, data folder path, per-session retry state
 - `hooks/hooks.json`: wires both hooks into Claude Code
 - `tests/run.py`: hook tests; `tests/guard-cases.txt`: the expected decision for each command
-- `skills/review/SKILL.md`: the review flow; `skills/review/references/dimensions/`: the eight dimensions
+- `skills/review/SKILL.md`: the whole-server review flow; `skills/review/references/dimensions/`: the eight dimensions
+- `skills/quick-review/SKILL.md`: the one-pass check with no agents; `skills/review-changes/SKILL.md`: the look at what a task changed
 - `skills/fix/SKILL.md`: plan, approve, run one fix at a time, check after each
 - `DESIGN.md`: the reasons behind the structure
 

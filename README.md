@@ -1,5 +1,7 @@
 # hsops
 
+Do you have a laptop or an old machine lying around, and have you always wanted to try running a homeserver? This repo is here to help you do that.
+
 hsops is a suite of skills and hooks for Claude Code and Codex that helps you set up, manage and maintain your own self-hosted server. Take a mini PC, an old laptop or a Raspberry Pi from bare hardware to a running server, then deploy apps, diagnose problems, set up monitoring and backups, and get in-depth reviews. hsops keeps notes on your server between sessions and stops before commands that could destroy your data.
 
 ## Why use hsops?
@@ -43,7 +45,9 @@ From there it works through hardware checks, SSH, remote access, Docker, storage
 | `/hsops:diagnose` | Works from the symptom to an evidence-backed root cause and fix. |
 | `/hsops:monitoring` | Sets up alerts that reach you, and tests every one. |
 | `/hsops:backups` | Local and off-site copies, finished only once a test restore succeeds. |
-| `/hsops:review` | An in-depth review across eight dimensions, run as parallel reviewers in Claude Code and ranked by your priorities. |
+| `/hsops:review` | An in-depth review of the whole server across eight dimensions, run as parallel reviewers in Claude Code and ranked by your priorities. |
+| `/hsops:quick-review` | A fast look at current health and exposure in one pass, with no agents. |
+| `/hsops:review-changes` | A quick look at what a task just changed. Runs by itself after any task that changes the server. |
 | `/hsops:fix` | Carries out review recommendations: a plan for each, one approval, then one fix at a time with a check after each. |
 | `/hsops:learn` | Turns a session's surprises into lasting knowledge. |
 
