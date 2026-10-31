@@ -55,7 +55,7 @@ Use the issue templates:
 
 Before you post, remove anything private from logs and output: hostnames, IP addresses, usernames, paths under your home folder and any secrets. If the guard or evidence hook gave a wrong decision, paste the command (redacted) and the decision you expected. That case can go into `tests/guard-cases.txt`.
 
-Do not post security problems in a public issue. Report them privately instead, using GitHub's private vulnerability reporting for the repository if it is enabled there.
+Do not post security problems in a public issue. Report them privately instead, as described in [SECURITY.md](SECURITY.md).
 
 ## Using Claude Code
 

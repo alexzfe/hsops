@@ -11,7 +11,7 @@
       "name": "hsops",
       "source": "./",
       "description": "Set up, run, review and refine a homeserver",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "repository": "https://github.com/alexzfe/hsops",
       "license": "MIT",
       "category": "workflow"
