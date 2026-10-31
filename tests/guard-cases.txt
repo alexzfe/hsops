@@ -1,0 +1,68 @@
+# Cases for hooks/guard.py: the expected decision in Claude Code (ask, deny or allow), then the command.
+# In Codex every ask becomes deny. Fixtures (tests/run.py): server `myserver` lists /tank in its Layout;
+# server `pi` has `guard: off`. Add a line for every false alarm or miss that gets reported.
+
+# Permanent data loss: ask
+ask    ssh myserver 'sudo rm -rf /srv/media/tmp'
+ask    ssh myserver "sudo rm -r /tank/photos"
+ask    ssh -p 2222 -i ~/.ssh/id_ed25519 user@myserver 'rm -rf ~'
+ask    ssh myserver 'cd /opt/stacks && rm -rf *'
+ask    ssh myserver 'sudo zfs destroy tank/photos@old'
+ask    ssh myserver 'sudo zpool destroy tank'
+ask    ssh myserver 'docker volume rm immich_pgdata'
+ask    ssh myserver 'cd /opt/stacks/immich && docker compose down -v'
+ask    ssh myserver 'docker system prune -a --volumes'
+ask    ssh myserver 'sudo mkfs.ext4 /dev/sdb1'
+ask    ssh myserver 'sudo wipefs -a /dev/sdb'
+ask    ssh myserver 'sudo sh -c "rm -rf /mnt/backup/*"'
+ask    ssh myserver 'docker exec db rm -rf /var/lib/postgresql/data'
+ask    ssh myserver 'sudo find /srv/media -name "*.part" -delete'
+ask    sudo dd if=debian.iso of=/dev/sdb bs=4M status=progress
+ask    sudo mkfs.vfat -F 32 /dev/sdc1
+ask    sudo sgdisk --zap-all /dev/sdb
+
+# Disruptive but recoverable: deny once, then the identical retry runs
+deny   ssh myserver 'cd /opt/stacks/immich && docker compose down'
+deny   ssh myserver 'docker rm -f jellyfin'
+deny   ssh myserver 'docker system prune -f'
+deny   ssh myserver 'sudo systemctl restart docker'
+deny   ssh myserver 'sudo -n systemctl restart ssh'
+deny   ssh myserver 'sudo reboot'
+deny   ssh myserver 'sudo apt remove --purge snapd'
+deny   ssh myserver 'sudo chown -R 1000:1000 /srv/media'
+deny   ssh myserver 'sudo umount /mnt/backup'
+deny   ssh myserver 'sudo ufw allow 22/tcp'
+deny   ssh myserver 'sudo ufw --force enable'
+deny   ssh myserver 'sudo firewall-cmd --permanent --add-port=8096/tcp'
+deny   ssh myserver 'sudo tailscale down'
+deny   ssh myserver 'echo "PasswordAuthentication no" | sudo tee /etc/ssh/sshd_config.d/10-hsops.conf'
+deny   ssh myserver 'sudo sed -i "s/^#Port 22/Port 2222/" /etc/ssh/sshd_config'
+deny   ssh myserver "echo 'UUID=abcd /mnt/data ext4 defaults,nofail 0 2' | sudo tee -a /etc/fstab"
+deny   scp sshd.conf myserver:/etc/ssh/sshd_config.d/10-hsops.conf
+deny   rsync -a --delete ./media/ myserver:/srv/media/
+deny   ssh myserver 'sudo crontab -r'
+deny   ssh myserver sudo bash -s <<'EOF'
+       docker compose -f /opt/stacks/plex/compose.yaml down
+       EOF
+
+# Routine or read-only: allow
+allow  ssh myserver 'df -h; lsblk -o NAME,SIZE,MODEL,SERIAL; docker ps'
+allow  ssh myserver 'sudo -n ufw status verbose'
+allow  ssh myserver 'sudo nft list ruleset'
+allow  ssh myserver 'sudo firewall-cmd --list-all'
+allow  ssh myserver 'sudo iptables -L -n'
+allow  ssh myserver 'cd /opt/stacks/immich && docker compose pull && docker compose up -d'
+allow  ssh myserver 'docker compose -f /opt/stacks/plex/compose.yaml logs --tail 50'
+allow  ssh myserver 'sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak-20261030'
+allow  ssh myserver 'sudo sshd -t'
+allow  ssh myserver 'rm -rf /tmp/hsops-snapshot'
+allow  ssh myserver 'echo "would run: mkfs.ext4 /dev/sdb1"'
+allow  ssh myserver 'sudo wipefs /dev/sdb'
+allow  ssh myserver 'command -v reboot'
+allow  ssh myserver 'sudo dd if=/dev/sda of=/dev/null bs=1M count=100'
+allow  ssh pi 'sudo reboot'
+allow  scp myserver:/etc/ssh/sshd_config ./sshd_config
+allow  echo mkfs
+allow  rm -rf ./build /tmp/scratch
+allow  docker compose down
+allow  git status && git diff

@@ -1,0 +1,20 @@
+{
+  "name": "hsops",
+  "owner": {
+    "name": "alexzfe"
+  },
+  "metadata": {
+    "description": "Homeserver operations skills for Claude Code and Codex"
+  },
+  "plugins": [
+    {
+      "name": "hsops",
+      "source": "./",
+      "description": "Set up, run, review and refine a homeserver",
+      "version": "0.2.1",
+      "repository": "https://github.com/alexzfe/hsops",
+      "license": "MIT",
+      "category": "workflow"
+    }
+  ]
+}

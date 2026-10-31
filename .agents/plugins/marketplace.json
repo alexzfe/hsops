@@ -1,0 +1,21 @@
+{
+  "name": "hsops",
+  "interface": {
+    "displayName": "hsops"
+  },
+  "plugins": [
+    {
+      "name": "hsops",
+      "version": "0.2.1",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
