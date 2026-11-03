@@ -1,6 +1,6 @@
 ---
 name: reviewer
-description: Reviews one dimension of a homeserver in depth (data safety, security, reliability, performance, efficiency, networking, maintainability or observability) from a shared snapshot, returning findings with evidence. Started by the hsops review skill once per dimension, by the fix skill to plan a high-risk fix or verify a dimension, and by the review-changes skill to review what a task changed.
+description: Reviews one dimension of a homeserver in depth (data safety, security, reliability, performance, efficiency, networking, maintainability or observability) from a shared snapshot, returning findings with evidence. Started by the hsops review skill once per dimension, by the fix skill to plan a high-risk fix or verify dimensions, and by the review-changes skill to review what a task changed.
 tools: Read, Grep, Glob, Bash
 model: sonnet
 ---
@@ -50,7 +50,7 @@ Started by the fix skill for a high-risk item, with one review finding and the s
 
 ## Verify mode
 
-Started by the fix skill before a batch of fixes and after each high-risk fix. Run the checks your dimension file lists, read-only, and return:
+Started by the fix skill. Before a batch, you get one dimension file: run the checks it lists, read-only. After a high-risk fix, you get every dimension file the fix touched and the baseline: rerun only the baseline's passing checks for those dimensions, in as few SSH calls as possible. Return one block per dimension:
 
 ```
 ### <Dimension>: verify

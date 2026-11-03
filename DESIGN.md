@@ -67,13 +67,15 @@ ECC still coordinates its reviewers for multi-angle reviews (`orch-review`). Its
 **Decision:**
 - `review` looks at the whole server with eight agents. `quick-review` takes one pass with no agents. `review-changes` starts one agent on what a task just changed.
 - A quick review appends to the newest review file instead of starting its own.
-- `fix` drafts plans in the main session, and uses plan agents and per-fix verify agents only for high-risk fixes.
+- `fix` drafts plans in the main session, and uses plan agents and per-fix verify agents only for high-risk fixes. After a high-risk fix, one verify agent covers every dimension it touched.
 - The baseline runs after approval.
 - Every task that changes the server, in any skill, closes with `review-changes`. `review` never starts by itself.
 
 **Why separate skills:** by the rule above, each is triggered differently and knows different things: the dimensions and merging, a fixed checklist, and a look at one task's changes. The price is two more descriptions loaded in every session.
 
 **Why:** one tested fix batch of eight items spawned 30 agents and used more tokens than the full review that produced it (1.57M against 1.18M fresh input). Each plan agent cost about as much as a whole review dimension, and four of the eight plans were never carried out. A closing `review` on top would have repeated the same day's open items, and it couldn't confirm the scheduled jobs that hadn't run yet.
+
+**Why one verify agent per high-risk fix:** one per touched dimension multiplied with the number of high-risk fixes; three such fixes touching three dimensions each started nine. A single agent reruns only the baseline's passing checks for those dimensions, which is a short list. The baseline keeps one agent per dimension, because it runs once and has to cover each dimension's full checks.
 
 **Why still review every change:** the session that made a change shouldn't be the only one to judge it. One agent starts from a clean context, so it reads the changes without the session's assumptions, and it replaces an end-of-batch verify agent per dimension.
 

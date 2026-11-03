@@ -63,7 +63,7 @@ After each fix, check it:
 1. the plan's success check passes
 2. the finding's evidence command no longer shows the problem
 3. the health check matches the baseline
-4. high-risk fixes only: one `hsops:reviewer` agent per touched dimension, in **verify** mode and in parallel, finds no check that passed in the baseline failing now. In Codex, run these checks in this session.
+4. high-risk fixes only: one `hsops:reviewer` agent in **verify** mode, given the baseline and the file of every dimension the fix touched, finds no check that passed in the baseline failing now. One agent per fix, not one per dimension, because these checks repeat for every high-risk fix in the batch. In Codex, run these checks in this session.
 
 The fix **failed** if any check fails, or a step errored or needed a disruptive deviation. New findings unrelated to the fix, and the costs listed under Trade-offs, are not failures: note them for the closing review.
 
