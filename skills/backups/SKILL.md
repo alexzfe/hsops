@@ -1,6 +1,6 @@
 ---
 name: backups
-description: Set up, check or restore homeserver backups, covering what to back up, local and off-site copies, database dumps, scheduling, heartbeats and test restores. Use when the user wants backups, asks whether their data is safe, needs to restore something, or after deploying an app that holds irreplaceable data.
+description: Use when the user wants homeserver backups set up or checked, asks whether their data is safe, needs to restore something, or has just deployed an app that holds irreplaceable data, including off-site copies, database dumps, backup schedules and test restores.
 ---
 
 # Backups
@@ -13,8 +13,8 @@ Read `../../shared/conventions.md` (relative to this skill's directory) first an
    - anything else the user names.
    
    Mark each item irreplaceable or replaceable. Replaceable media is the user's call.
-2. **Needs.** Ask about:
-   - the data size and their upload bandwidth (estimate how long the first off-site upload will take)
+2. **Needs.** Measure the data size with `du` first. Then cover this ground in Discovery rounds (conventions):
+   - their upload bandwidth (estimate how long the first off-site upload will take)
    - their budget for off-site storage
    - where an off-site copy could live: cloud object storage, a friend's server, a second box on the tailnet
    - the retention they want

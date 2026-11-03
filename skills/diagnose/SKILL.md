@@ -1,6 +1,6 @@
 ---
 name: diagnose
-description: Diagnose and fix problems on the homeserver, such as a service down, a container crash-looping, an app unreachable, a full disk, a slow server, or a failed update. Use when something on the homeserver is broken, erroring, slow or behaving unexpectedly.
+description: Use when something on the homeserver is broken, erroring, slow or behaving unexpectedly, such as a service down, a container crash-looping, an app unreachable, a full disk, a slow server or a failed update.
 ---
 
 # Diagnose

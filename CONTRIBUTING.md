@@ -40,6 +40,8 @@ The tests cover the guard and evidence hooks. They use a temporary data folder, 
 ## Style notes
 
 - **Skills are instructions.** Write `SKILL.md` files as steps Claude can follow. Say what to check, what to ask the user and what never to do.
+- **Descriptions say when.** A skill's `description` starts with "Use when…" and lists triggers, symptoms and app names, never the skill's steps. Agents follow a summary instead of reading the skill.
+- **Ask in rounds.** When a skill needs input from the user, point it at the Discovery section of `shared/conventions.md` rather than writing a list of questions to ask.
 - **Keep files short.** `SKILL.md` under about 100 lines, reference files under about 150. Split bigger content into its own file.
 - **No personal or server data.** Never commit hostnames, IP addresses, usernames, personal paths, emails, tokens or session logs. Examples should use placeholders such as `myserver` or `/srv/media`.
 - **Hooks use only the standard library.** They run as `python3 -B`, and their output must be the JSON decision the tests expect.

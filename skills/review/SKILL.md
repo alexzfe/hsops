@@ -1,6 +1,6 @@
 ---
 name: review
-description: Review a whole homeserver in depth with one agent per dimension, and return ranked recommendations across data safety, security, reliability, performance, efficiency, networking, maintainability and observability. Use when the user asks to review, audit, explore or optimize their whole homeserver, or asks about one dimension of it, such as "check my security" or "is it wasting power". For a fast look use quick-review; for recent changes use review-changes.
+description: Use when the user wants their whole homeserver reviewed, audited, explored or optimized in depth, or asks about one area of it in depth (data safety, security, reliability, performance, efficiency, networking, maintainability or observability), such as "check my security" or "is it wasting power". Not when they ask for a quick check (quick-review) or about changes just made (review-changes).
 ---
 
 # Review
@@ -9,7 +9,7 @@ A deep look at one whole server: a shared snapshot, one reviewer per dimension, 
 
 ## 1. Priorities
 
-Confirm the profile's Priorities with the user, or ask for them:
+Confirm the profile's Priorities with the user, or settle them in a Discovery round (conventions):
 
 - what matters most: data safety, security, reliability, performance, power and cost, low upkeep, noise
 - constraints: budget, fixed hardware, times when downtime isn't acceptable.
@@ -25,7 +25,7 @@ Then choose the dimensions:
 
 ## 2. Snapshot
 
-Collect `references/snapshot.md` in as few SSH calls as possible, and write the result to the scratchpad as `snapshot-<server>.md`. Mask every secret value (`.env` contents, passwords in compose `environment:` sections) before writing.
+Every dimension judges the same moment from this one snapshot, so no command runs once per agent. Collect `references/snapshot.md` in as few SSH calls as possible, and write the result to the scratchpad as `snapshot-<server>.md`. Mask every secret value (`.env` contents, passwords in compose `environment:` sections) before writing.
 
 **Done when:** every section of snapshot.md is filled, or marked unavailable with the reason.
 
@@ -46,6 +46,7 @@ Collect `references/snapshot.md` in as few SSH calls as possible, and write the 
 
 ## 4. Merge
 
+- **No evidence, no finding:** a finding without an evidence line is dropped and listed under Not checked.
 - **Duplicates:** a problem reported by several dimensions becomes one finding that lists them all.
 - **Conflicts** (Security wants a port closed, Reliability needs it open; Efficiency wants disks spun down, Performance doesn't): present each one to the user as a choice, with a lean based on their priorities.
 - **The last review:**

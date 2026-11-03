@@ -1,6 +1,6 @@
 ---
 name: monitoring
-description: Set up or extend monitoring and alerting on the homeserver, including uptime checks, host and container metrics, disk and SMART health, backup heartbeats and phone notifications. Use when adding monitoring, alerts, dashboards or health checks to the homeserver.
+description: Use when adding or extending monitoring on the homeserver, such as uptime checks, alerts and phone notifications, dashboards, host and container metrics, disk and SMART health, or backup heartbeats.
 ---
 
 # Monitoring
@@ -14,7 +14,7 @@ Monitoring is worth having for the failures that would otherwise go unnoticed: a
    4. Drive health (SMART) on every physical disk.
    5. Backup freshness: a heartbeat that alerts when a backup *doesn't* report in.
    6. Host and container metrics with history.
-2. **Choose tools with the user.** Ask how much they want to run and learn, whether they want dashboards, and how many hosts they have. Then discuss what fits:
+2. **Choose tools with the user.** Count the hosts from the data folder's `servers/`. In a Discovery round (conventions), cover how much they want to run and learn, and whether they want dashboards. Then discuss what fits:
 
    | Need | Options |
    |---|---|

@@ -1,6 +1,6 @@
 ---
 name: learn
-description: Refine hsops from the current session by recording lessons in the user's and server's notes, or improving the suite's own skills. Use when the user runs /hsops:learn or asks to remember what a homeserver session taught, or when a homeserver task ended on a surprise worth keeping.
+description: Use when the user runs /hsops:learn, asks to remember what a homeserver session taught, or wants hsops itself improved from a session, or when a homeserver task ended on a surprise worth keeping, such as a cause that wasn't obvious, a step that failed, a fact the profile lacked or a preference the user stated.
 ---
 
 # Learn

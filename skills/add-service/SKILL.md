@@ -1,6 +1,6 @@
 ---
 name: add-service
-description: Deploy, update or migrate a self-hosted app on the homeserver with Docker Compose (Immich, Jellyfin, Plex, Nextcloud, Vaultwarden and others), or choose which app fits a need. Use when installing, adding, updating or moving an app or container on the homeserver.
+description: Use when installing, adding, updating or moving a self-hosted app or container on the homeserver with Docker Compose (Immich, Jellyfin, Plex, Nextcloud, Vaultwarden and others), or when choosing which app fits a need.
 ---
 
 # Add or update a service
@@ -30,7 +30,7 @@ Read `../../shared/conventions.md` (relative to this skill's directory) first an
    - The user opens the app from their own device.
    
    Tell the user about first-run steps that are theirs, such as creating the admin account.
-7. **Decide how it's reached.** Ask whether they need the LAN, the tailnet or the public internet. Access over the LAN or the tailnet (`tailscale serve`) is fine as it is. Public access follows fixed rule 4.
+7. **Decide how it's reached.** Ask whether they need the LAN, the tailnet or the public internet, with your recommendation. Access over the LAN or the tailnet (`tailscale serve`) is fine as it is. Public access follows fixed rule 4.
 8. **Record it.** Add a row to the profile's Services table, including the data that needs backing up, and add a line to `changelog.md`. If that data is irreplaceable, suggest the `backups` skill.
 
 **Done when:** every check in step 6 passes and step 8 is written.

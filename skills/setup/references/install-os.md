@@ -4,7 +4,7 @@ For a machine with no OS yet. The user does the physical steps at the server. Cl
 
 ## 1. Choose a distro
 
-Ask how much the user wants to tinker, how long they want each release to last, and how new the hardware is. Then discuss the options:
+In a Discovery round (conventions), cover how much the user wants to tinker, how long they want each release to last, and how new the hardware is. Then discuss the options:
 
 | Distro | Fits when |
 |---|---|

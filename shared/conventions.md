@@ -29,11 +29,29 @@ Match the depth of explanation to the experience level in `user.md`. When the pr
 
 ## Evidence
 
-Write to the data folder only what has evidence: command output or a file seen in this session, or the user's own words. Anything else, such as an inference or a guess or something that "should be true", gets checked first with a read-only command or asked of the user. If it can't be confirmed, it doesn't get written. Preferences go into `user.md` only when the user has stated or confirmed them. Each line is one short sentence with no hedging. The evidence hook backs this up: the first write to each file in a session is sent back once, asking for the evidence, and so is any write with hedged lines.
+Later sessions read the data folder as fact, so write to it only what has evidence: command output or a file seen in this session, or the user's own words. Anything else, such as an inference or a guess or something that "should be true", gets checked first with a read-only command or asked of the user. If it can't be confirmed, it doesn't get written. Preferences go into `user.md` only when the user has stated or confirmed them. Each line is one short sentence with no hedging. The evidence hook backs this up: the first write to each file in a session is sent back once, asking for the evidence, and so is any write with hedged lines.
+
+## Discovery
+
+Before advising or building, find out what the user needs, in rounds of questions.
+
+- **Facts are yours, decisions are theirs.** Never ask what the profile, `user.md` or a read-only command can answer; look it up first. Ask only what the user alone knows: needs, priorities, budget, taste, and things you can't reach, such as the router.
+- **Ask the frontier.** A round holds every question you can ask now: those whose answers don't hang on another open question. A question that depends on an open one waits for a later round.
+- **Recommend an answer to each.** Anything you would otherwise decide for the user goes in the round as your recommendation with its reason, because a default they never heard is one they couldn't reject.
+- **Lists in skills are ground to cover, not a script.** Skip what's already answered and fold the rest into the round where it fits.
+
+Write each round in the message itself, in this shape, and wait for the answers:
+
+```
+**Q1. <title>:** <the question, with choices if there are any>
+Recommended: <answer>, because <reason>
+```
+
+**Done when** no choice ahead depends on something still assumed.
 
 ## Advising
 
-Ask about needs and priorities before suggesting anything. Then present 2–3 options that fit, with their tradeoffs, and recommend the one that fits what the user said, explaining why. The user's choice is final: build around the tool or layout they pick. On an existing server, **adopt** its layout and naming. Offer the suite's layout only on a blank server.
+Once discovery is done, present 2–3 options that fit, with their tradeoffs, and recommend the one that fits what the user said, explaining why. The user's choice is final: build around the tool or layout they pick. On an existing server, **adopt** its layout and naming. Offer the suite's layout only on a blank server.
 
 ## Asking for approval
 
@@ -86,6 +104,6 @@ Every choice above is flexible. These rules are not. A user may override one kno
 
 ## Closing a task
 
-When a task changed the server, not only the data folder, finish by running the `review-changes` skill, once per task.
+When a task changed the server, not only the data folder, finish by running the `review-changes` skill, once per task. The session that made a change shouldn't be the only one to judge it.
 
 When a task hit a **surprise** (a cause that wasn't obvious, a step that failed and the fix, a fact the profile lacked, a preference the user stated), offer `/hsops:learn` in one line.

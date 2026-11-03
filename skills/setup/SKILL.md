@@ -1,6 +1,6 @@
 ---
 name: setup
-description: Set up a homeserver from wherever the user is starting (bare hardware with no OS, a fresh Linux install, or an existing server to onboard), covering OS install, hardware checks, SSH, remote access, Docker, storage and choosing apps. Use when the user wants to set up, build or start a homeserver, turn a mini PC, laptop, Raspberry Pi or old desktop into a server, or when no hsops server profile exists yet.
+description: Use when the user wants to set up, build or start a homeserver from any starting point (bare hardware with no OS, a fresh Linux install, or an existing server to onboard), turn a mini PC, laptop, Raspberry Pi or old desktop into a server, or when no hsops server profile exists yet.
 ---
 
 # Setup
@@ -13,7 +13,7 @@ Setup records **facts**, each with its evidence (see the evidence rule in the co
 
 ## Phase 0: Starting point
 
-1. If `~/.config/hsops/user.md` is missing, ask the user's experience level, how much explanation they want and how much Claude may change without asking (the change level in the conventions), then create it from `../../shared/user-template.md`. On first creation of `~/.config/hsops/`, offer `git init` (and a private remote) for it.
+1. If `~/.config/hsops/user.md` is missing, settle in one Discovery round (conventions) the user's experience level, how much explanation they want and how much Claude may change without asking (the change level), then create it from `../../shared/user-template.md`. On first creation of `~/.config/hsops/`, offer `git init` (and a private remote) for it.
 2. Ask where the user is starting from:
    - **Bare hardware** (no OS yet): follow `references/install-os.md`, then return here at phase 1.
    - **Fresh OS:** continue below.
