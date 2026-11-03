@@ -5,7 +5,7 @@ description: Use when the user picks recommendations from a saved hsops review t
 
 # Fix
 
-Turns chosen review items into changes on the server, one at a time, with a check after each. Read `../../shared/conventions.md` (relative to this skill's directory) first and load the server's context, including the newest file in `servers/<server>/reviews/` (or the one the user names).
+Turns chosen review items into changes on the server, one at a time, with a check after each. Read `../../shared/conventions.md` and `references/reporting.md` (relative to this skill's directory) first and load the server's context, including the newest file in `servers/<server>/reviews/` (or the one the user names).
 
 ## 1. Pick
 
@@ -36,9 +36,11 @@ When two plans touch the same file, service or disk, order them and say so.
 
 ## 3. Approve
 
-Present all plans as a brief in the message, then ask a short question: approve all, approve some, or change one. The approval covers each plan exactly as written. At **ask first**, also confirm before each step that changes something.
+Present all plans as a brief in the message, opening with the approval summary (reporting), then ask a short question: approve all, approve some, or change one. The approval covers each plan exactly as written. At **ask first**, also confirm before each step that changes something.
 
 When the guard hook stops an approved disruptive step, quote the user's approval of that plan in your reply, then retry. The hook asks for facts, and the quote is the fact it needs.
+
+Once approved, show the progress board (reporting).
 
 **Done when:** the user has approved the plans to run.
 
@@ -67,6 +69,8 @@ After each fix, check it:
 
 The fix **failed** if any check fails, or a step errored or needed a disruptive deviation. New findings unrelated to the fix, and the costs listed under Trade-offs, are not failures: note them for the closing review.
 
+After the checks, show the fix result and the progress board (reporting), and show the board again whenever the run stops.
+
 - **Passed:** mark the item `done` in the review file and go on to the next one.
 - **Failed:** stop the whole batch. Show the user the failed check with its evidence, and the plan's rollback. Don't roll back without their go-ahead. Mark the item `failed: <check that failed>`. The remaining items stay `open`, and their plans are re-checked against the changed server before they run.
 
@@ -78,6 +82,6 @@ Run the `review-changes` skill, giving it the approved plans and the baseline fi
 
 Don't run the `review` skill unless the user asks for it: it would repeat the same day's open items, and it can't confirm scheduled jobs that haven't run yet.
 
-Summarise what changed, any deviations, what the review found, and what's left. List anything that can't be confirmed yet, such as a scheduled job that hasn't run, with the command that confirms it and when it can run.
+Summarise, opening with the final progress board: what changed, any deviations, what the review found, and what's left. List anything that can't be confirmed yet, such as a scheduled job that hasn't run, with the command that confirms it and when it can run.
 
 **Done when:** `review-changes` has finished and the summary is given.
