@@ -1,6 +1,6 @@
 # hsops
 
-**Version:** 0.4.0 | **Port:** none (a plugin, not a server) | **Stack:** Markdown skills, Python 3 stdlib hooks, Claude Code and Codex plugin manifests
+**Version:** 0.5.0 | **Port:** none (a plugin, not a server) | **Stack:** Markdown skills, Python 3 stdlib hooks, Claude Code and Codex plugin manifests
 
 ## What
 hsops is a Claude Code and Codex plugin of homeserver skills: setup, deploy, diagnose, monitor, back up, review (whole server, quick and changes), fix and learn. Users install it from the marketplace. Contributors develop it from a clone. Nothing here runs as a service.
@@ -37,7 +37,7 @@ No linter, coverage tool or build step is configured. Nothing needs compiling or
 .claude-plugin/     Claude Code manifests: plugin.json (version), marketplace.json
 .codex-plugin/      Codex manifest: plugin.json
 .agents/plugins/    Codex marketplace listing
-skills/             One folder per skill, each with SKILL.md; review/ and add-service/ add references/
+skills/             One folder per skill, each with SKILL.md; review/, add-service/ and fix/ add references/
 agents/reviewer.md  The one generic reviewer agent: review, plan, verify and changes modes
 hooks/              hooks.json wires guard.py and evidence.py into PreToolUse; _hook.py has shared helpers
 shared/             conventions.md (fixed rules, data folder), profile-template.md, user-template.md

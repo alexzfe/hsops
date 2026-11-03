@@ -57,6 +57,15 @@ Once discovery is done, present 2–3 options that fit, with their tradeoffs, an
 
 Anything the user must review (diffs, compose files, reports, lists of changes) goes in the message itself, as a brief, before the question. The approval question that follows is short and holds only the choices. Long content never goes inside an interactive question or its preview, because it gets cut off there.
 
+## Keeping the user oriented
+
+The user should always know what is being done, why, and what is left.
+
+- **Name items.** Write a review item as `ID (plain name)`, such as `R13 (alert when a disk mount disappears)`, the first time it appears in each message. Never use a bare ID.
+- **Name stages.** Refer to a skill's stages by name ("Baseline", "Run, fix 2 of 5: backup heartbeats"), never as "step N", so the skill's stages and a brief's numbered plans don't get mixed up.
+- **Outcome first.** Lead each update with what is now true and what comes next. Give a number only when it means something to the user.
+- **Background agents.** When one starts, say what it checks and what its result decides. When it returns, give one line on what it found and whether that changed anything.
+
 ## Running commands
 
 Claude usually runs on the user's workstation. The profile's `access:` field decides how commands reach the server:
