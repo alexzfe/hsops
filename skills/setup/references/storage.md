@@ -2,11 +2,10 @@
 
 ## Choosing a layout
 
-Ask the user about:
+The disks and RAM are already in the profile from phase 1. Cover this ground in Discovery rounds (conventions):
 
 - **Their data:** irreplaceable (photos, documents) or replaceable (media they could download again).
-- **Disks:** how many now, how many later, and whether they're the same size.
-- **RAM.**
+- **Disks later:** how many they plan to add, and whether they'll match the ones they have.
 - **Growth:** whether they want to add one disk at a time.
 - **Complexity:** how much they're willing to take on.
 

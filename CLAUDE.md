@@ -1,6 +1,6 @@
 # hsops
 
-**Version:** 0.3.0 | **Port:** none (a plugin, not a server) | **Stack:** Markdown skills, Python 3 stdlib hooks, Claude Code and Codex plugin manifests
+**Version:** 0.4.0 | **Port:** none (a plugin, not a server) | **Stack:** Markdown skills, Python 3 stdlib hooks, Claude Code and Codex plugin manifests
 
 ## What
 hsops is a Claude Code and Codex plugin of homeserver skills: setup, deploy, diagnose, monitor, back up, review (whole server, quick and changes), fix and learn. Users install it from the marketplace. Contributors develop it from a clone. Nothing here runs as a service.
@@ -73,6 +73,7 @@ hsops has no secrets and needs no configuration to run. Hooks read these from th
 ## Rules for Changes
 
 - Keep each `SKILL.md` under about 100 lines and each reference file under about 150. Split anything bigger.
+- A skill's `description` starts with "Use when…" and lists triggers only, never the skill's steps (see DESIGN.md).
 - No hostnames, IPs, usernames, personal paths or secrets in suite files, examples or tests.
 - Add a line to `tests/guard-cases.txt` for every false alarm or miss you fix. Format: the expected decision (`ask`, `deny` or `allow`), then the command. Indented lines continue the command above.
 - Hooks use only the Python standard library and must run under `python3 -B`. Tests need Python 3.7 or newer.

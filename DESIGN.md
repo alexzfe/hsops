@@ -88,3 +88,23 @@ ECC still coordinates its reviewers for multi-angle reviews (`orch-review`). Its
 **Why:** a model's guesses rarely announce themselves, so matching hedge words alone misses most of them. GateGuard's finding is that demanding specific facts changes what the model writes, where "are you sure?" doesn't. The hedge check stays as a cheap second net, because the first test failed with exactly those phrases. Both allow an identical retry, so a false alarm costs one turn.
 
 **What a hook can't check:** whether the user really said something. "Stated or confirmed by the user" stays an instruction.
+
+## Skill descriptions say when, not what
+
+**Decision:** every skill's `description` starts with "Use when…" and lists triggers, symptoms and app names. It never summarizes the skill's steps.
+
+**Why:** superpowers measured that an agent given a description that summarizes the workflow follows the summary and skips the body. In their test, a skill that required two reviews ran one. Our `fix` description summarized its steps without the baseline or the closing `review-changes`, the two steps most likely to be skipped. The three review skills are told apart by their triggers ("a quick check", "in depth", "changes just made") instead of by how they work.
+
+## Reviewer agents run on Sonnet; high-risk plans on Opus
+
+**Decision:** `agents/reviewer.md` sets `model: sonnet`. The `fix` skill starts plan-mode agents for high-risk items on `opus`.
+
+**Why:** with no `model:`, every reviewer inherited the session's model, and a whole review starts eight of them. Review, verify and changes modes read a snapshot and run read-only checks against a written dimension file, which doesn't need the most capable model. A high-risk plan touches storage, boot, the network or access, where a wrong step can lock the user out, so it gets the strongest one.
+
+## Discovery in rounds, with a recommended answer to each question
+
+**Decision:** the conventions' Discovery section asks in rounds. Each round holds every question that doesn't depend on another open one, each with a recommended answer and its reason. Facts come from the profile and read-only commands, never from the user. Question lists in skills are ground to cover, not a script.
+
+**Why:** the skills used to list five or more things to "ask about" with no pacing, which tends to become one long questionnaire, including questions a command answers (`storage.md` asked about RAM after phase 1 had recorded it). The rounds come from the grilling skill. The recommendations come from superpowers' brainstorming: a default the user never heard is one they couldn't reject.
+
+**The alternative:** brainstorming asks one question per message. That's slower when several questions are independent, which is common in setup.

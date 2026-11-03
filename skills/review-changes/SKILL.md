@@ -1,6 +1,6 @@
 ---
 name: review-changes
-description: Take a quick look at changes just made to a homeserver, checking that each is in place, healthy and free of side effects. Runs at the end of any task that changed the server. Use when the user asks to review the changes or check what was just done.
+description: Use at the end of any task that changed a homeserver, or when the user asks to review the changes or check what was just done on it.
 ---
 
 # Review changes

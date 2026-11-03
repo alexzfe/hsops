@@ -1,6 +1,6 @@
 ---
 name: fix
-description: Carry out recommendations from a saved hsops review. Plans each fix, gets one approval, runs the fixes one at a time and checks after each that it worked and nothing broke. Use when the user picks review items to fix, such as "fix #6 and #7", "fix the open items" or "do the fix-now ones".
+description: Use when the user picks recommendations from a saved hsops review to carry out on the homeserver, such as "fix #6 and #7", "fix the open items" or "do the fix-now ones".
 ---
 
 # Fix
@@ -17,7 +17,7 @@ Look up the change level (conventions). At **read-only**, do steps 1 and 2 only,
 
 ## 2. Plans
 
-Draft one plan per item in this session, without changing anything. A fix is **high-risk** when it touches storage, boot, the network or access, or needs a reboot. With subagents (Claude Code), start one `hsops:reviewer` agent in **plan** mode per high-risk item, in parallel. Each plan follows the skill named in its finding and has this shape:
+Draft one plan per item in this session, without changing anything. A fix is **high-risk** when it touches storage, boot, the network or access, or needs a reboot. With subagents (Claude Code), start one `hsops:reviewer` agent in **plan** mode per high-risk item, in parallel, on the most capable model (`opus`). Only high-risk items get one, because a plan agent costs about as much as a whole review dimension. Each plan follows the skill named in its finding and has this shape:
 
 ```
 #### Plan: <finding title>   (skill: <skill>)
@@ -38,13 +38,13 @@ When two plans touch the same file, service or disk, order them and say so.
 
 Present all plans as a brief in the message, then ask a short question: approve all, approve some, or change one. The approval covers each plan exactly as written. At **ask first**, also confirm before each step that changes something.
 
-When the guard hook stops an approved disruptive step, quote the user's approval of that plan in your reply, then retry.
+When the guard hook stops an approved disruptive step, quote the user's approval of that plan in your reply, then retry. The hook asks for facts, and the quote is the fact it needs.
 
 **Done when:** the user has approved the plans to run.
 
 ## 4. Baseline
 
-Record the state before anything changes, so that later checks can tell a regression from something that was already broken. Save it to the scratchpad as `baseline-<server>.md`:
+Record the state before anything changes, so that later checks can tell a regression from something that was already broken. It runs after approval, so no checks go to plans the user turns down. Save it to the scratchpad as `baseline-<server>.md`:
 
 - **Health:** running containers and their status, `systemctl --failed`, the data mounts the profile lists, SSH reachable, and `tailscale status` when the profile uses Tailscale.
 - **Dimensions:** start one `hsops:reviewer` agent in **verify** mode per dimension the approved plans touch, all in parallel, and save the checks that pass now.
@@ -55,6 +55,7 @@ Record the state before anything changes, so that later checks can tell a regres
 
 Carry out each approved plan yourself, in this session and in order, following its skill and the fixed rules (backups of config files, a changelog line, profile updates). Never hand a fix to a subagent: only you can stop and ask the user when a step surprises you, and the guard hook's prompts stay in the conversation.
 
+- **Where you are:** the review file's statuses are the record of the batch. After the conversation is compacted, or whenever you're unsure, re-read them and the baseline file instead of trusting memory.
 - **Deviations:** read-only or easily reversed adjustments (a missing `mkdir`, a different package name) are fine; note them for the result. A new disruptive step, or any change to the rollback, stops the run: report it and re-plan that item.
 
 After each fix, check it:
@@ -75,7 +76,7 @@ The fix **failed** if any check fails, or a step errored or needed a disruptive 
 
 Run the `review-changes` skill, giving it the approved plans and the baseline file; after a failed batch, wait until the user has decided on the rollback. When a problem traces to a fix, use each plan's Touches to name it, and mark that item `failed: <check that failed>`.
 
-Don't run the `review` skill unless the user asks for it.
+Don't run the `review` skill unless the user asks for it: it would repeat the same day's open items, and it can't confirm scheduled jobs that haven't run yet.
 
 Summarise what changed, any deviations, what the review found, and what's left. List anything that can't be confirmed yet, such as a scheduled job that hasn't run, with the command that confirms it and when it can run.
 

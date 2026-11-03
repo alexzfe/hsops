@@ -1,6 +1,6 @@
 {
   "name": "hsops",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Homeserver operations for Claude Code: set up a server from bare hardware, deploy apps, diagnose, monitor, back up, review in depth, and refine itself from every session.",
   "author": {
     "name": "alexzfe"

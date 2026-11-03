@@ -1,6 +1,6 @@
 ---
 name: quick-review
-description: Take a fast look at a homeserver's current health and exposure in one pass, with no agents. Use when the user asks for a quick review, a quick check, or whether anything is wrong with their server.
+description: Use when the user asks for a quick review or quick check of their homeserver, or whether anything is wrong with it right now, without asking for an in-depth audit.
 ---
 
 # Quick review
