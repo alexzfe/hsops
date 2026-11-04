@@ -1,11 +1,15 @@
 {
   "name": "hsops",
+  "displayName": "hsops",
   "version": "0.6.1",
   "description": "Homeserver operations for Claude Code: set up a server from bare hardware, deploy apps, diagnose, monitor, back up, review in depth, and refine itself from every session.",
   "author": {
     "name": "alexzfe"
   },
+  "homepage": "https://github.com/alexzfe/hsops",
   "repository": "https://github.com/alexzfe/hsops",
+  "documentationUrl": "https://github.com/alexzfe/hsops#readme",
+  "supportUrl": "https://github.com/alexzfe/hsops/issues",
   "license": "MIT",
   "keywords": ["homeserver", "homelab", "self-hosting", "docker", "sysadmin"],
   "skills": ["./skills/"]
