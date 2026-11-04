@@ -115,6 +115,12 @@ def test_evidence(tmp):
     p_plain = {"file_path": pattern, "content": "# SMART self-tests\nWhen: scheduling self-tests.\n"}
     expect("evidence: first write to a pattern asks for pitfall events",
            "each pitfall" in run(tmp, "evidence.py", "Write", p_plain, "evp", reason=True), True)
+    expect("evidence: the pattern question accepts lessons on file",
+           "lesson lines on file" in run(tmp, "evidence.py", "Write", p_plain, "evw", reason=True), True)
+    expect("evidence: a nested pattern gets the pattern question",
+           "each pitfall" in run(tmp, "evidence.py", "Write", {"file_path": os.path.join(data, "general", "patterns", "a", "b", "c.md"), "content": "# x\n"}, "evn", reason=True), True)
+    expect("evidence: general/patterns.md gets the general question",
+           "beyond this one server" in run(tmp, "evidence.py", "Write", {"file_path": os.path.join(data, "general", "patterns.md"), "content": "- x\n"}, "evm", reason=True), True)
     expect("evidence: first write to the ledger asks for each occurrence",
            "each occurrence" in run(tmp, "evidence.py", "Write", {"file_path": ledger, "content": "## Skill: x\n"}, "evl", reason=True), True)
     expect("evidence: a hedged pattern line",

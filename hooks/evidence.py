@@ -29,8 +29,10 @@ QUESTIONS = {
     "general": "the session event that taught each lesson (a command and its output, or the user's words), "
                "and why it applies beyond this one server.",
     "pattern": "the session events behind each pitfall (a command and its output), the check you ran and its output, "
+               "or the lesson lines on file it was built from, quoted; "
                "and confirm no line names this server's hosts, IPs, paths or hardware serials.",
-    "ledger": "for each occurrence, the user's words or the review item, its date, and its cost as measured this session; "
+    "ledger": "for each occurrence, the user's words or the review item, its date, and its cost as measured this session, "
+              "or, for a decline or an entry that leaves the ledger, the user's words; "
               "for a Severe line, the event that put data or access at risk.",
     "server": "for each line you add or change, its evidence: the command and the output line that shows it, "
               "or the user's words. Drop any line you can't name evidence for.",

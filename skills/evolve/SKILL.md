@@ -13,7 +13,7 @@ Each learning takes the lowest level that holds it: a lesson, a pattern inside a
 
 Read the whole data folder: every `servers/*/lessons.md` and `servers/*/profile.md`, `general/*.md`, `general/patterns/` and `general/candidates.md`. A missing file or folder counts as empty. Also read each suite skill's `description` and list its `references/`. Build four lists:
 
-- **Ready:** ledger entries that are ready (`## Ready and declined` in the formats), including declined ones with enough new occurrences since the decline.
+- **Ready:** ledger entries that are ready (`## Ready and declined` in the formats), including declined ones with enough new occurrences since the decline. Drop a ready entry whose fix is already in its target file, quoting that line; the brief shows the drop.
 - **Clusters:** 3 or more lessons on one topic within one skill's job. A cluster is a source of pattern candidates; eligibility is still the occurrence count in the formats.
 - **Promotions:** lessons in `lessons.md` that pass the `## Content test` in learn's routing file, general or mixed. The first run works through the whole backlog this way.
 - **Prunes:** duplicates, lessons the profile or the suite now covers, and lessons proven wrong.
@@ -31,7 +31,7 @@ Put each entry on the ladder at the lowest level that holds it.
 
   An entry that fails becomes a pattern for, or an edit to, the skill that owns the job.
 - **Safety edit:** goes where it prevents the problem: a check in a review dimension, a step in the skill that ran into it, a `tests/guard-cases.txt` line, or rarely a proposed fixed rule. Never a new skill. `Severe` never makes a pattern or a skill eligible.
-- **Pattern or skill:** eligible at 2 or more occurrences (formats); below that it stays in the ledger.
+- **Pattern or skill:** eligible at 2 or more occurrences (formats); below that it stays in the ledger. A placed pattern that isn't eligible yet goes to the ledger as a `Pattern:` entry; that is where its reason is kept.
 
 **Done when:** each entry has a level and a target file, and each new skill has its trigger test written.
 
@@ -45,7 +45,7 @@ Safety edits first. Then everything else by cost × occurrences, each shown with
 
 Check Maintainer mode in learn's routing file first: it decides where every draft goes.
 
-- **Promotions:** the general part goes to `general/<skill>.md` (or the suite file, for a maintainer), with its condition attached. Mixed lessons split as the content test says; the machine's part stays in `lessons.md`.
+- **Promotions:** the general part goes to `general/<skill>.md` (or the suite file, for a maintainer), with its condition attached. A wholly general lesson is removed from `lessons.md` once it's written to general. Mixed lessons split as the content test says; the machine's part stays in `lessons.md`.
 - **Patterns:** in the shape in the formats. Strip hostnames, IPs, serials, model names tied to one machine, usernames and personal paths; write `<server>` where a name is needed. A general lesson the pattern absorbs is removed only when the pattern holds its whole content and its condition; otherwise keep it. A server lesson keeps its machine fact and gets a one-line pointer to the pattern.
 - **Skill edits and safety edits:** as diffs against their target files: a skill's own files, a review dimension file, `tests/guard-cases.txt`, or `shared/conventions.md` for a proposed fixed rule.
 - **Prunes:** as deletion diffs, each with the line that now covers it (in the profile, a suite file or a pattern) or the evidence that proves it wrong.

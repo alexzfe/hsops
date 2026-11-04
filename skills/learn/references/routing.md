@@ -24,7 +24,7 @@ The brief shows each lesson's pick, general or server, so the user can flip it.
 | True for any homeserver | `~/.config/hsops/general/<skill>.md`, for the skill that was running when the lesson mattered |
 | A sighting of a lesson already on file | that lesson's line: add the occurrence to its tag, never a near-duplicate line |
 | A skill edit from one event | the skill's own files (see Maintainer mode), naming its event |
-| A skill candidate, or a severe candidate as a safety edit | `~/.config/hsops/general/candidates.md`, the ledger |
+| A skill candidate, or a severe candidate as a safety edit (unless that edit is written this session as an approved skill edit) | `~/.config/hsops/general/candidates.md`, the ledger |
 
 A ledger entry that already exists gets the new occurrence added to its `Seen:` line, keyed as in `## Occurrences`, rather than a second entry.
 

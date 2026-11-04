@@ -19,6 +19,7 @@ A lesson stays one short line, with a sighting tag at the end:
 - **Each distinct occurrence counts**, several per session included. Three different leaked secrets in one review are 3 occurrences.
 - **Repeat mentions don't count again.** N19 in the review, the fix plan and the summary is 1 occurrence.
 - **Key.** An occurrence is keyed by its date and its event (the review item, or the command and its output). A key already recorded is not added again, so a second learn run in the same session adds nothing.
+- **Lessons and clusters.** A lesson's occurrences are its tag dates, the first date counting 1 and `×N` counting N. A cluster's count is the sum over its lessons.
 - **Show the spread.** Counts always come with their sessions: `5 occurrences, 3 sessions`, so a burst from one session reads as one.
 
 ## Cost and severe
@@ -81,7 +82,7 @@ An entry is **ready** at 2 or more occurrences, or, for a safety edit, at one se
 
 **Declines don't block for good.**
 
-- A declined entry stays with `Declined YYYY-MM-DD: "<reason>"` and keeps counting. Occurrences before and since the decline are shown apart.
+- A declined entry stays with `Declined YYYY-MM-DD: "<reason>"` and keeps counting. Occurrences before and since the decline are shown apart: `Seen: 1 before decline; 2 since, 2 sessions`.
 - It is proposed again once 2 or more new occurrences arrive after the decline (or, for a safety edit, one new severe occurrence). The earlier reason is shown next to the new evidence.
 - Time alone never re-proposes it.
 - The user can ask for any declined entry at any time.

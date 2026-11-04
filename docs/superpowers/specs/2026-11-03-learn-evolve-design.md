@@ -143,7 +143,7 @@ Small skill edits from a single event stay in learn, because they are clearest r
    - Patterns in the shape above. General lessons they absorb are removed from their files, not copied. Server lessons get a one-line pointer.
    - Skill edits as diffs.
    - New skills follow the suite's rules: a trigger-only description, under ~100 lines, "read conventions, load context" first, a "Done when" per stage, modelled on an existing skill of the same kind.
-   - With subagents, each new-skill draft gets one independent `hsops:reviewer` pass before the brief. Patterns and edits don't, because the user reviews them in the diff.
+   - With subagents, each new-skill draft gets one general-purpose subagent pass before the brief, briefed with CLAUDE.md "Rules for Changes", the trigger-only description rule and the written trigger test. In Codex, that check runs in the session. Patterns and edits don't, because the user reviews them in the diff.
    - On a maintainer's clone, drafts go into suite files on a branch. For plugin users, patterns go to `general/patterns/`, and skill edits and new skills become upstream drafts.
 5. **Approve.** A brief grouped as Promotions, Patterns, Skill edits, New skills and Prunes. Each item gets one line on why, with its cost or severe event and its count, then its diff. Then a short question.
 6. **Write and record.** Write only what is approved. Update the ledger: a built entry is removed, and the commit or PR message names it; a declined one gets `Declined YYYY-MM-DD: "<reason>"`. On a clone, follow the repo's change rules: the `CLAUDE.md` architecture line for a new skill, the four version fields, a branch and a PR.

@@ -25,7 +25,7 @@ Alongside new lessons, list:
 - **Skill-edit candidates:** a missing step or check, a request that should have loaded a skill and didn't, or a skill line proven wrong. Each names its event.
 - **Skill candidates:** a job the user asked for, or a review item, that no skill owns.
 
-Record cost and risk as the learning formats say: pattern and skill candidates record `Cost:`, measured in the session, never estimated; a safety edit records `Severe:`, set only when data or access was at risk, plus `Cost:` when time was measured. A severe candidate also becomes a ledger safety edit, never a new-skill candidate.
+Record cost and risk as the learning formats say: pattern and skill candidates record `Cost:`, measured in the session, never estimated; a safety edit records `Severe:`, set only when data or access was at risk, plus `Cost:` when time was measured; a plain skill-edit candidate records `Cost:` when time was measured, and it's optional otherwise. A severe candidate also becomes a ledger safety edit, never a new-skill candidate, unless its safety edit is written this session as an approved skill edit; then it isn't logged.
 
 Keep only what looking can't reveal: drop anything that one command shows, things done right by default, and one-off outages.
 
@@ -75,7 +75,7 @@ For each general lesson that would help every hsops user, offer to draft an issu
 
 ## 6. Point to evolve
 
-When the ledger has a ready entry (see `## Ready and declined` in the learning formats), a severe one included, or 3 or more lessons share a topic within one skill's job, end with one line naming each, with its counts and cost:
+When the ledger has a ready entry (see `## Ready and declined` in the learning formats), a severe one included, or 3 or more lessons share a topic within one skill's job, or a `lessons.md` or `general/` file passes about 40 lines, end with one line naming each, with its counts and cost:
 
 `Ready for /hsops:evolve: 'rotate a leaked secret' (3 occurrences, 1 session, 25 min); a safety edit for secrets in git; 4 monitoring lessons cluster on SMART.`
 
