@@ -58,7 +58,7 @@ Unchanged one-line shape, with a sighting tag at the end:
 
 Two facts replace any notion of importance, each taken from the session:
 
-- **`Cost:`** the time an occurrence took, as measured in the session: `Cost: 9 min (plan agent rediscovered it)`, `Cost: 2 retries`. Every candidate records it.
+- **`Cost:`** the time an occurrence took, as measured in the session: `Cost: 9 min (plan agent rediscovered it)`, `Cost: 2 retries`. Pattern and skill candidates record Cost; a safety edit records Severe, plus Cost only when the occurrence took measurable time.
 - **`Severe:`** set only when data or access was at risk, with its event: `Severe: a dying disk would have gone unnoticed`.
 
 They do different jobs, because **skills streamline and checks make things safe.** A new skill doesn't make a risk smaller; it makes a bumpy process smooth. Safety lives in the fixed rules, the hooks, the review dimensions and `fix`'s verify step.
@@ -98,7 +98,7 @@ Cost: 15 min (a fake-alert test silently dropped samples)
 Seen: 2 occurrences, 2 sessions. 2026-11-01, 2026-11-03
 
 ## Safety edit: credentials committed to git
-Severe: three service credentials exposed in a transcript and in git
+Severe: service API keys committed to tracked config files
 Proposed: data-safety dimension check for secrets in tracked files
 Seen: 1 occurrence. 2026-11-03 review N18
 ```
