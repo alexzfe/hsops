@@ -8,6 +8,8 @@ Everything hsops knows about the user and their servers lives in `~/.config/hsop
 
 - `user.md`: the user's experience level and preferences, which hold across all servers (shape: `shared/user-template.md`).
 - `general/<skill>.md`: general lessons this user's sessions taught, one file per skill.
+- `general/patterns/<skill>/<topic>.md`: multi-step recipes the sessions taught (shape: `shared/learning-formats.md`).
+- `general/candidates.md`: the ledger of what is waiting to become a pattern, a skill or a safety edit (shape: `shared/learning-formats.md`).
 - `servers/<server>/`, one folder per machine:
   - `profile.md`: facts about the box, plus the user's priorities (shape: `shared/profile-template.md`).
   - `lessons.md`: what this particular server has taught.
@@ -23,7 +25,8 @@ Read these before acting:
 - `user.md`
 - `general/<this skill>.md`, if it exists
 - the server's `profile.md` and `lessons.md`
-- the last ~20 lines of the server's `changelog.md`.
+- the last ~20 lines of the server's `changelog.md`
+- this skill's patterns: list `references/patterns/` in the skill's directory and `general/patterns/<skill>/` in the data folder, and read any whose name matches the task.
 
 Match the depth of explanation to the experience level in `user.md`. When the profile disagrees with what you observe, trust the observation and correct the profile.
 
