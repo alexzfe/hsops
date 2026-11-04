@@ -2,6 +2,15 @@
 
 Ideas to explore later. Each one needs its own design pass before it gets built.
 
+## What makes a skill useful
+
+An exploration session, before `evolve` has proposed many new skills. The working idea from the learn-evolve design: a skill streamlines an otherwise bumpy process, and safety lives in rules, hooks and checks instead. The trigger test and "cost × occurrences" are a first guess at telling a useful skill from a redundant one.
+
+- **Open questions:**
+  - What the current skills do well and badly in real sessions: which ones users reach for, which get loaded and ignored, where they make a task slower.
+  - What a homeserver builder or operator would ask for that no skill covers today.
+  - Whether the trigger test and the cost threshold pick the right candidates, judged against the first few skills evolve proposes.
+
 ## A less strict evidence hook
 
 The evidence hook (`hooks/evidence.py`) denies the first write to every data-folder file in a session, and every write with a hedge phrase. In practice that may cost more turns than it saves. The idea is to loosen it without letting guesses back into the data folder.

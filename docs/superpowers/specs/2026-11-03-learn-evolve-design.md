@@ -54,16 +54,18 @@ Unchanged one-line shape, with a sighting tag at the end:
 - Repeat mentions of the same occurrence don't count again: N19 in the review, the fix plan and the summary is 1 occurrence.
 - Counts are always shown with their session spread: `5 occurrences, 3 sessions`, so a burst from one session reads as one.
 
-### Impact
+### Cost and severe
 
-Every lesson, pattern and ledger entry candidate records its impact as a fact, with the event behind it:
+Two facts replace any notion of importance, each taken from the session:
 
-- `data`: data loss or a near miss
-- `access`: a lockout, or exposed credentials
-- `outage`: a service down, or a failure that would have gone unnoticed
-- `time`: rework or rediscovery
+- **`Cost:`** the time an occurrence took, as measured in the session: `Cost: 9 min (plan agent rediscovered it)`, `Cost: 2 retries`. Every candidate records it.
+- **`Severe:`** set only when data or access was at risk, with its event: `Severe: a dying disk would have gone unnoticed`.
 
-Counts decide **eligibility** only. Impact decides **order**. A `data` or `access` entry is eligible after one occurrence.
+They do different jobs, because **skills streamline and checks make things safe.** A new skill doesn't make a risk smaller; it makes a bumpy process smooth. Safety lives in the fixed rules, the hooks, the review dimensions and `fix`'s verify step.
+
+- **Patterns and new skills** are eligible on recurrence and cost alone: 2 or more occurrences, ordered by cost × occurrences. `Severe` never makes one eligible.
+- **Safety edits** are eligible after one severe occurrence. A safety edit is a skill edit that prevents the problem: a check in a review dimension, a step in the skill that ran into it, a `tests/guard-cases.txt` line for a command that should have been stopped, or, rarely, a proposed fixed rule. Severe entries sort first among skill edits.
+- Counts decide **eligibility** only. They never rank by themselves.
 
 ### Patterns
 
@@ -82,23 +84,28 @@ Patterns hold general knowledge only. Machine-specific facts stay in `lessons.md
 
 ### Ledger
 
-`general/candidates.md` holds what is waiting to become a pattern or a skill:
+`general/candidates.md` holds what is waiting to become a pattern, a skill or a safety edit:
 
 ```
 ## Skill: rotate a leaked secret
 Trigger: "my token leaked", "rotate the API keys"
-Impact: access (three service credentials exposed in a transcript and in git)
+Cost: 25 min across N19, N18, N12 (finding each use, rotating, re-checking)
 Seen: 3 occurrences, 1 session. 2026-11-03 review N19, N18, N12
 
 ## Pattern: monitoring/textfile-metrics
 Lessons: <server> "node-exporter merges a metric name across textfile files…"; <server> "a fake-alert test file must copy HELP and TYPE…"
-Impact: time
+Cost: 15 min (a fake-alert test silently dropped samples)
 Seen: 2 occurrences, 2 sessions. 2026-11-01, 2026-11-03
+
+## Safety edit: credentials committed to git
+Severe: three service credentials exposed in a transcript and in git
+Proposed: data-safety dimension check for secrets in tracked files
+Seen: 1 occurrence. 2026-11-03 review N18
 ```
 
-An entry is **ready** at 2 or more occurrences, or at one `data` or `access` occurrence. It leaves the ledger when built (`built: <path>`) or covered by something else.
+An entry is **ready** at 2 or more occurrences, or, for a safety edit, at one severe occurrence. It leaves the ledger when built (`built: <path>`) or covered by something else.
 
-**Declines don't block for good.** A declined entry stays with `Declined YYYY-MM-DD: "<reason>"` and keeps counting, with occurrences before and since the decline shown apart. It is proposed again once 2 or more new occurrences, or one new `data` or `access` occurrence, arrive after the decline, with the earlier reason shown next to the new evidence. Time alone never re-proposes it. The user can ask for any declined entry at any time.
+**Declines don't block for good.** A declined entry stays with `Declined YYYY-MM-DD: "<reason>"` and keeps counting, with occurrences before and since the decline shown apart. It is proposed again once 2 or more new occurrences arrive after the decline (or, for a safety edit, one new severe occurrence), with the earlier reason shown next to the new evidence. Time alone never re-proposes it. The user can ask for any declined entry at any time.
 
 ## `learn` changes
 
@@ -109,13 +116,13 @@ Learn keeps one job: capture what this session taught.
    - **Skill-edit candidates:** a missing step or check, a request that should have loaded a skill and didn't, or a skill line proven wrong. Each names its event.
    - **Skill candidates:** a job the user asked for, or a review item, that no skill owns. These go to the ledger.
 
-   Each candidate records its impact. The evidence rule is unchanged.
+   Each candidate records its cost, and `Severe:` when data or access was at risk. A severe candidate also goes to the ledger as a safety edit. The evidence rule is unchanged.
 2. **Route.** The content test replaces "unsure → `lessons.md`": a lesson about how software behaves is general; one about this machine's paths, hardware or choices stays in `lessons.md`. A mixed lesson is split, the general part going up with its condition attached (for example, "some NVMe drives reject namespace 1 …"). Skill edits: on a maintainer's clone, edit the suite file directly (any `SKILL.md`, reference or `conventions.md`); for plugin users, draft an upstream issue or PR. Skill candidates go to the ledger.
 3. **Refine** and 4. **Approve** as today. The brief adds sightings, skill edits and ledger entries, and shows each lesson's general-or-server pick so the user can flip it.
 5. **Upstream** unchanged.
 6. **Prune** moves to `evolve`.
 
-**New closing line:** when an entry is ready, or 3 or more lessons share a topic within one skill's job, learn says so in one line: *"Ready for /hsops:evolve: 'rotate a leaked secret' (access, 3 occurrences); 4 monitoring lessons cluster on SMART."*
+**New closing line:** when an entry is ready (a severe one included), or 3 or more lessons share a topic within one skill's job, learn says so in one line: *"Ready for /hsops:evolve: 'rotate a leaked secret' (3 occurrences, 25 min); a safety edit for secrets in git; 4 monitoring lessons cluster on SMART."*
 
 Small skill edits from a single event stay in learn, because they are clearest right after the session. Edits that come from a cluster of lessons belong to evolve.
 
@@ -130,31 +137,31 @@ Small skill edits from a single event stay in learn, because they are clearest r
    - clusters: 3 or more lessons on one topic within one skill's job
    - promotions: lessons in `lessons.md` that pass the content test (the first run works through the existing backlog this way, with no migration script)
    - prunes: duplicates, lessons the profile or suite now covers, lessons proven wrong
-2. **Place** each entry on the ladder. A new skill passes the **trigger test** in writing: 2–3 phrases a user would say, the closest existing skill descriptions quoted, and why none of them claims those phrases. An entry that fails becomes a pattern for, or an edit to, the skill that owns the job.
-3. **Order** by impact, then occurrences, showing the session spread.
+2. **Place** each entry on the ladder. A new skill passes the **trigger test** in writing: 2–3 phrases a user would say, the closest existing skill descriptions quoted, and why none of them claims those phrases. An entry that fails becomes a pattern for, or an edit to, the skill that owns the job. A safety edit goes where it prevents the problem (a review dimension check, a step in the skill that hit it, a guard case, or rarely a proposed fixed rule), never into a new skill.
+3. **Order:** safety edits first, then everything else by cost × occurrences, showing the session spread.
 4. **Draft.**
    - Patterns in the shape above. General lessons they absorb are removed from their files, not copied. Server lessons get a one-line pointer.
    - Skill edits as diffs.
    - New skills follow the suite's rules: a trigger-only description, under ~100 lines, "read conventions, load context" first, a "Done when" per stage, modelled on an existing skill of the same kind.
    - With subagents, each new-skill draft gets one independent `hsops:reviewer` pass before the brief. Patterns and edits don't, because the user reviews them in the diff.
    - On a maintainer's clone, drafts go into suite files on a branch. For plugin users, patterns go to `general/patterns/`, and skill edits and new skills become upstream drafts.
-5. **Approve.** A brief grouped as Promotions, Patterns, Skill edits, New skills and Prunes. Each item gets one line on why, with impact and count, then its diff. Then a short question.
+5. **Approve.** A brief grouped as Promotions, Patterns, Skill edits, New skills and Prunes. Each item gets one line on why, with its cost or severe event and its count, then its diff. Then a short question.
 6. **Write and record.** Write only what is approved. Update the ledger with `built: <path>` or `Declined YYYY-MM-DD: "<reason>"`. On a clone, follow the repo's change rules: the `CLAUDE.md` architecture line for a new skill, the four version fields, a branch and a PR.
 
-**Done when:** every gathered entry is written, declined, or left with its reason ("1 occurrence, `time` impact: waiting").
+**Done when:** every gathered entry is written, declined, or left with its reason ("1 occurrence, cost 3 min: waiting").
 
 ## Other changes
 
 - **`hooks/evidence.py`:** `general/patterns/**` and `general/candidates.md` already fall under the `general` class. Give each its own first-write question:
   - patterns: the session events behind each pitfall, and the check that was run
-  - ledger: each occurrence (the user's words or the review item) and the event behind its impact
+  - ledger: each occurrence (the user's words or the review item) and its cost, and the event behind `Severe:` when set
 
   The hedge check is unchanged.
 - **`tests/run.py`:** cases for the first write to a pattern file, the first write to `candidates.md`, and a hedged line in a pattern.
 - **`shared/conventions.md`:**
   - In Load context first, one new line: list this skill's `references/patterns/` and `general/patterns/<skill>/`, and read any whose name matches the task.
   - In Data folder, the layout of `general/patterns/` and `candidates.md`.
-- **`DESIGN.md`:** a decision entry for the ladder, counts as eligibility and impact as order, no time decay, declines that reopen on new evidence, and no passive observer (the evidence rule, and secrets in logs).
+- **`DESIGN.md`:** a decision entry for the ladder, counts as eligibility, cost as order, severe as a route to safety edits and never to new skills, no time decay, declines that reopen on new evidence, and no passive observer (the evidence rule, and secrets in logs).
 - **`CLAUDE.md`:** architecture and key-file lines for `evolve/` and `learn/references/`.
 - **`README.md`:** `/hsops:evolve` in the skills table; the developing note mentions patterns.
 - **Version:** 0.6.0 in all four manifests and `CLAUDE.md`.
@@ -168,7 +175,7 @@ Small skill edits from a single event stay in learn, because they are clearest r
 - **Real-data learn run:** `/hsops:learn` at the end of a real homeserver session, before the evolve run, should at minimum:
   - add a sighting to an existing lesson the session hit, not write a near-duplicate line
   - route a new software-behavior lesson to general, and a machine-specific one to `lessons.md`, showing each pick in the brief
-  - log a job with no skill to `candidates.md`, with its occurrences and impact
+  - log a job with no skill to `candidates.md`, with its occurrences and cost
   - name each skill-edit candidate's event, and edit the suite file directly on the clone
   - end with the evolve pointer when an entry is ready
 - **Real-data evolve run:** the first `/hsops:evolve` on the maintainer's data folder, after the learn run, should at minimum:
