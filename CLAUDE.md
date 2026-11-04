@@ -1,9 +1,9 @@
 # hsops
 
-**Version:** 0.5.0 | **Port:** none (a plugin, not a server) | **Stack:** Markdown skills, Python 3 stdlib hooks, Claude Code and Codex plugin manifests
+**Version:** 0.6.0 | **Port:** none (a plugin, not a server) | **Stack:** Markdown skills, Python 3 stdlib hooks, Claude Code and Codex plugin manifests
 
 ## What
-hsops is a Claude Code and Codex plugin of homeserver skills: setup, deploy, diagnose, monitor, back up, review (whole server, quick and changes), fix and learn. Users install it from the marketplace. Contributors develop it from a clone. Nothing here runs as a service.
+hsops is a Claude Code and Codex plugin of homeserver skills: setup, deploy, diagnose, monitor, back up, review (whole server, quick and changes), fix, learn and evolve. Users install it from the marketplace. Contributors develop it from a clone. Nothing here runs as a service.
 
 ## Quick Start
 
@@ -37,10 +37,11 @@ No linter, coverage tool or build step is configured. Nothing needs compiling or
 .claude-plugin/     Claude Code manifests: plugin.json (version), marketplace.json
 .codex-plugin/      Codex manifest: plugin.json
 .agents/plugins/    Codex marketplace listing
-skills/             One folder per skill, each with SKILL.md; review/, add-service/ and fix/ add references/
+skills/             One folder per skill, each with SKILL.md; review/, add-service/, fix/ and learn/ add references/
+skills/evolve/      Turns repeated lessons into patterns, skill edits and new skills
 agents/reviewer.md  The one generic reviewer agent: review, plan, verify and changes modes
 hooks/              hooks.json wires guard.py and evidence.py into PreToolUse; _hook.py has shared helpers
-shared/             conventions.md (fixed rules, data folder), profile-template.md, user-template.md
+shared/             conventions.md (fixed rules, data folder), learning-formats.md, profile-template.md, user-template.md
 tests/              run.py (hook tests), guard-cases.txt (expected guard decision per command)
 DESIGN.md           Why it is built this way. Read before restructuring.
 ROADMAP.md          Ideas for later, each needing a design pass first
@@ -51,6 +52,8 @@ Skills are prompts that Claude follows, not code. The only executed code is the 
 ## Key Files
 
 - `shared/conventions.md`: fixed rules every skill follows (data protection, server access, evidence)
+- `shared/learning-formats.md`: the shapes of sightings, patterns and the ledger, and the rules for counts, cost and severe
+- `skills/evolve/SKILL.md`: gathers lessons and the ledger, places each on the ladder, drafts, asks for approval, writes
 - `hooks/guard.py`: `ask` for permanent data loss, deny-once for other disruptive commands
 - `hooks/evidence.py`: first-write and hedge-word checks for data folder writes
 - `hooks/_hook.py`: payload parsing, decisions, data folder path, per-session retry state

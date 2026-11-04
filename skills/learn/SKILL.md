@@ -1,21 +1,31 @@
 ---
 name: learn
-description: Use when the user runs /hsops:learn, asks to remember what a homeserver session taught, or wants hsops itself improved from a session, or when a homeserver task ended on a surprise worth keeping, such as a cause that wasn't obvious, a step that failed, a fact the profile lacked or a preference the user stated.
+description: Use when the user runs /hsops:learn, asks to remember what a homeserver session taught, wants to record that a lesson came up again, or wants hsops itself improved from a session, or when a homeserver task ended on a surprise worth keeping, such as a cause that wasn't obvious, a step that failed, a fact the profile lacked or a preference the user stated.
 ---
 
 # Learn
 
-Turns a session's surprises into lasting knowledge, written where the next session will read it. Read `../../shared/conventions.md` (relative to this skill's directory) first.
+Turns a session's surprises into lasting knowledge, written where the next session will read it. Read `../../shared/conventions.md` and `../../shared/learning-formats.md` (relative to this skill's directory) first.
+
+Learn captures what this one session taught. It never clusters lessons into patterns, moves lessons between files, writes new skills or prunes; those are `/hsops:evolve`'s.
 
 ## 1. Harvest
 
-List the candidate **lessons** from this session. A lesson is something that would have saved time if it had been known at the start:
+List the candidates from this session. A **lesson** is something that would have saved time if it had been known at the start:
 
 - a root cause that wasn't obvious
 - a step that failed, and what worked instead
 - a fact the profile lacked
 - a preference the user stated
 - a fixed rule the user knowingly overrode.
+
+Alongside new lessons, list:
+
+- **Sightings:** a lesson already on file that this session hit again or relied on. Record the occurrence on that line, never a near-duplicate.
+- **Skill-edit candidates:** a missing step or check, a request that should have loaded a skill and didn't, or a skill line proven wrong. Each names its event.
+- **Skill candidates:** a job the user asked for, or a review item, that no skill owns.
+
+Record cost and risk as the learning formats say: pattern and skill candidates record `Cost:`, measured in the session, never estimated; a safety edit records `Severe:`, set only when data or access was at risk, plus `Cost:` when time was measured; a plain skill-edit candidate records `Cost:` when time was measured, and it's optional otherwise. A severe candidate also becomes a ledger safety edit, never a new-skill candidate, unless its safety edit is written this session as an approved skill edit; then it isn't logged.
 
 Keep only what looking can't reveal: drop anything that one command shows, things done right by default, and one-off outages.
 
@@ -28,17 +38,9 @@ Then apply the evidence rule from the conventions to each candidate:
 
 **Done when:** each remaining candidate is one short sentence with its evidence named.
 
-## 2. Route each lesson
+## 2. Route each candidate
 
-| Lesson | Destination |
-|---|---|
-| A fact about the server | its `profile.md` |
-| True only for this server, including rule overrides | its `lessons.md` |
-| How this user likes things done, as stated or confirmed by them | `~/.config/hsops/user.md` |
-| True for any homeserver | `~/.config/hsops/general/<skill>.md`, for the skill that was running when the lesson mattered |
-| Unsure whether it's general | the server's `lessons.md`. Promote it once it recurs on a second server. |
-
-**Maintainer mode:** if this skill's directory is inside a git checkout of hsops and not in a plugin cache (`git -C <skill dir> rev-parse --show-toplevel` succeeds, and the path doesn't contain `/cache/`), general lessons go straight into the suite file where they would have been read: the setup phase or reference, `add-service/references/apps/<app>.md`, a review dimension file, or diagnose's common causes. Otherwise they go to `general/`.
+Follow `references/routing.md`: the content test, the destinations table and maintainer mode. A missing target file is treated as empty and created only on an approved write.
 
 ## 3. Refine the target file
 
@@ -61,21 +63,20 @@ Size limits: a SKILL.md stays under about 100 lines and a reference file under a
 
 Present the edits as a brief in the message itself (see "Asking for approval" in the conventions), grouped by destination:
 
-- for each lesson: one line saying what it is and why it matters, then its diff
+- for each lesson: one line saying what it is and why it matters, its pick (general or server) so the user can flip it, then its diff
+- each sighting, skill edit and ledger entry, with its event, `Cost:` and any `Severe:`
 - then a short question asking which of the edits to write.
 
 Write only what the user approves. If the data folder or the suite is a git repo, point the user to `git diff` to review the edits before committing.
 
 ## 5. Offer to share upstream
 
-For each general lesson that would help every hsops user, offer to draft an issue or PR against the hsops repository (`repository` in `.claude-plugin/plugin.json`). The draft contains only the lesson and its reason. Create it with `gh` only after the user approves.
+For each general lesson that would help every hsops user, offer to draft an issue or PR against the hsops repository (`repository` in `.claude-plugin/plugin.json`). The draft contains only the lesson and its reason. For a plugin user, each approved skill edit also becomes an upstream draft (see Maintainer mode in `references/routing.md`), naming its event. Create any draft with `gh` only after the user approves.
 
-## 6. Prune
+## 6. Point to evolve
 
-When a `lessons.md` or `general/` file passes about 40 lines:
+When the ledger has a ready entry (see `## Ready and declined` in the learning formats), a severe one included, or 3 or more lessons share a topic within one skill's job, or a `lessons.md` or `general/` file passes about 40 lines, end with one line naming each, with its counts and cost:
 
-- promote lessons that also hold on another server
-- merge duplicates
-- delete lessons that the profile or the suite now covers.
+`Ready for /hsops:evolve: 'rotate a leaked secret' (3 occurrences, 1 session, 25 min); a safety edit for secrets in git; 4 monitoring lessons cluster on SMART.`
 
-**Done when:** every harvested lesson has been written, shared or declined by the user.
+**Done when:** every harvested candidate has been written, logged, shared or declined by the user.

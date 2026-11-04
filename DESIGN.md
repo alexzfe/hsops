@@ -103,6 +103,26 @@ ECC still coordinates its reviewers for multi-angle reviews (`orch-review`). Its
 
 **Why:** with no `model:`, every reviewer inherited the session's model, and a whole review starts eight of them. Review, verify and changes modes read a snapshot and run read-only checks against a written dimension file, which doesn't need the most capable model. A high-risk plan touches storage, boot, the network or access, where a wrong step can lock the user out, so it gets the strongest one.
 
+## A ladder from lesson to new skill, with counts as eligibility and cost as order
+
+**Decision:** each learning takes the lowest level that holds it: a lesson, a pattern inside an existing skill's job, a skill edit, or a new skill. The line between a pattern and a new skill is the trigger, not size or frequency.
+
+- Occurrence counts decide eligibility only: 2 or more for a pattern or a new skill. Cost, the time an occurrence took in the session, decides the order, as cost × occurrences, shown with the session spread.
+- `Severe` (data or access at risk) is eligible after one occurrence, and only for a safety edit: a check, a step, a guard case or, rarely, a proposed fixed rule. It never makes a pattern or a skill eligible.
+- Nothing decays with time. A lesson isn't less true for going unseen, so pruning rests on evidence.
+- A declined entry stays in the ledger and keeps counting. It is proposed again once 2 or more new occurrences arrive after the decline (or, for a safety edit, one new severe occurrence), with the earlier reason shown next to them.
+- There is no passive observer. No hook logs tool calls, and no background agent infers patterns from them.
+
+**Why:** the five rules rest on separate reasons.
+
+- **Skills streamline and checks make things safe.** A new skill doesn't make a risk smaller; it makes a bumpy process smooth. Safety lives in the fixed rules, the hooks, the review dimensions and `fix`'s verify step, so `Severe` leads only to edits there.
+- **Counts rank badly.** A burst of cheap annoyances would outrank one rare, expensive event. Counts show that a problem recurs, and cost shows what it is worth fixing.
+- **Time says nothing about truth.** A decay rule would drop lessons for being quiet, and the evidence rule needs no clock.
+- **Declines depend on evidence.** A decline made on 1 occurrence shouldn't bind once there are 3. Time alone never reopens one, so the user isn't asked the same question every month.
+- **No observer, for two reasons.** Inferred patterns are the guesses the evidence rule keeps out of the data folder. Homeserver sessions are full of secrets, and a log of every tool call would capture them.
+
+**The cost:** the ladder depends on `learn` recording occurrences and cost honestly at the end of a session. A session that skips `learn` leaves no trace.
+
 ## Discovery in rounds, with a recommended answer to each question
 
 **Decision:** the conventions' Discovery section asks in rounds. Each round holds every question that doesn't depend on another open one, each with a recommended answer and its reason. Facts come from the profile and read-only commands, never from the user. Question lists in skills are ground to cover, not a script.

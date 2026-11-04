@@ -23,8 +23,8 @@ def env(tmp):
     return dict(os.environ, HSOPS_DATA_DIR=os.path.join(tmp, "hsops"), CLAUDE_PLUGIN_DATA=os.path.join(tmp, "state"))
 
 
-def run(tmp, hook, tool, tool_input, session=None, codex=False):
-    """The hook's decision: ask, deny or allow."""
+def run(tmp, hook, tool, tool_input, session=None, codex=False, reason=False):
+    """The hook's decision: ask, deny or allow. With reason=True, its reason text ("" on allow)."""
     global sessions
     if session is None:
         sessions += 1
@@ -37,8 +37,9 @@ def run(tmp, hook, tool, tool_input, session=None, codex=False):
     if out.returncode != 0:
         return f"error {out.returncode}: {out.stderr.strip()}"
     if not out.stdout.strip():
-        return "allow"
-    return json.loads(out.stdout)["hookSpecificOutput"]["permissionDecision"]
+        return "" if reason else "allow"
+    decision = json.loads(out.stdout)["hookSpecificOutput"]
+    return decision.get("permissionDecisionReason", "") if reason else decision["permissionDecision"]
 
 
 def expect(name, got, want):
@@ -109,6 +110,25 @@ def test_evidence(tmp):
     expect("evidence: Bash read of the data folder", run(tmp, "evidence.py", "Bash", {"command": f"cat {data}/user.md"}), "allow")
     patch = f"*** Begin Patch\n*** Update File: {lessons}\n@@\n+- I think the UPS is a CyberPower.\n*** End Patch\n"
     expect("evidence: Codex apply_patch", run(tmp, "evidence.py", "apply_patch", {"command": patch}, codex=True), "deny")
+    pattern = os.path.join(data, "general", "patterns", "monitoring", "smart-selftests.md")
+    ledger = os.path.join(data, "general", "candidates.md")
+    p_plain = {"file_path": pattern, "content": "# SMART self-tests\nWhen: scheduling self-tests.\n"}
+    expect("evidence: first write to a pattern asks for pitfall events",
+           "each pitfall" in run(tmp, "evidence.py", "Write", p_plain, "evp", reason=True), True)
+    expect("evidence: the pattern question accepts lessons on file",
+           "lesson lines on file" in run(tmp, "evidence.py", "Write", p_plain, "evw", reason=True), True)
+    expect("evidence: a nested pattern gets the pattern question",
+           "each pitfall" in run(tmp, "evidence.py", "Write", {"file_path": os.path.join(data, "general", "patterns", "a", "b", "c.md"), "content": "# x\n"}, "evn", reason=True), True)
+    expect("evidence: general/patterns.md gets the general question",
+           "beyond this one server" in run(tmp, "evidence.py", "Write", {"file_path": os.path.join(data, "general", "patterns.md"), "content": "- x\n"}, "evm", reason=True), True)
+    expect("evidence: first write to the ledger asks for each occurrence",
+           "each occurrence" in run(tmp, "evidence.py", "Write", {"file_path": ledger, "content": "## Skill: x\n"}, "evl", reason=True), True)
+    expect("evidence: a hedged pattern line",
+           run(tmp, "evidence.py", "Edit", {"file_path": pattern, "old_string": "", "new_string": "Pitfalls: NVMe probably needs a flag.\n"}, "evp"), "deny")
+    expect("evidence: a sighting tag is not a hedge",
+           run(tmp, "evidence.py", "Edit", {"file_path": lessons, "old_string": "4 GB of RAM.", "new_string": "4 GB of RAM. (seen 2026-11-01, 2026-11-03 ×2)"}, "ev"), "allow")
+    expect("evidence: other general files keep the lesson question",
+           "beyond this one server" in run(tmp, "evidence.py", "Write", {"file_path": os.path.join(data, "general", "fix.md"), "content": "- x\n"}, "evg", reason=True), True)
 
 
 def main():
