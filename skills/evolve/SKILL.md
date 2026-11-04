@@ -11,10 +11,10 @@ Each learning takes the lowest level that holds it: a lesson, a pattern inside a
 
 ## 1. Gather
 
-Read the whole data folder: every `servers/*/lessons.md`, `general/*.md`, `general/patterns/` and `general/candidates.md`. A missing file or folder counts as empty. Also read each suite skill's `description` and list its `references/`. Build four lists:
+Read the whole data folder: every `servers/*/lessons.md` and `servers/*/profile.md`, `general/*.md`, `general/patterns/` and `general/candidates.md`. A missing file or folder counts as empty. Also read each suite skill's `description` and list its `references/`. Build four lists:
 
 - **Ready:** ledger entries that are ready (`## Ready and declined` in the formats), including declined ones with enough new occurrences since the decline.
-- **Clusters:** 3 or more lessons on one topic within one skill's job.
+- **Clusters:** 3 or more lessons on one topic within one skill's job. A cluster is a source of pattern candidates; eligibility is still the occurrence count in the formats.
 - **Promotions:** lessons in `lessons.md` that pass the `## Content test` in learn's routing file, general or mixed. The first run works through the whole backlog this way.
 - **Prunes:** duplicates, lessons the profile or the suite now covers, and lessons proven wrong.
 
@@ -47,7 +47,8 @@ Check Maintainer mode in learn's routing file first: it decides where every draf
 
 - **Promotions:** the general part goes to `general/<skill>.md` (or the suite file, for a maintainer), with its condition attached. Mixed lessons split as the content test says; the machine's part stays in `lessons.md`.
 - **Patterns:** in the shape in the formats. Strip hostnames, IPs, serials, model names tied to one machine, usernames and personal paths; write `<server>` where a name is needed. A general lesson the pattern absorbs is removed only when the pattern holds its whole content and its condition; otherwise keep it. A server lesson keeps its machine fact and gets a one-line pointer to the pattern.
-- **Skill edits and safety edits:** as diffs against the skill's own files.
+- **Skill edits and safety edits:** as diffs against their target files: a skill's own files, a review dimension file, `tests/guard-cases.txt`, or `shared/conventions.md` for a proposed fixed rule.
+- **Prunes:** as deletion diffs, each with the line that now covers it (in the profile, a suite file or a pattern) or the evidence that proves it wrong.
 - **New skills:** follow the suite's rules: a trigger-only `description` starting "Use when…", under ~100 lines, "read conventions, load context" first, a `**Done when:**` per stage, modelled on an existing skill of the same kind (a flow like `fix`, a one-pass check like `quick-review`).
 - **Independent check:** with subagents (Claude Code), each new-skill draft gets one general-purpose subagent pass before the brief, given CLAUDE.md "Rules for Changes", the trigger-only description rule and the written trigger test. In Codex, run that check in this session. Patterns and edits get none, because the user reviews them in the diff.
 - **Where drafts go:** a maintainer's drafts go into suite files on a branch. For a plugin user, patterns go to `general/patterns/<skill>/<topic>.md`, and skill edits and new skills become upstream drafts.
@@ -64,7 +65,7 @@ Present a brief in the message (see "Asking for approval" in the conventions), g
 
 Write only what is approved. Then update the ledger:
 
-- built: `built: <path>`, and the entry leaves the ledger
+- built: the entry is removed from the ledger, and the commit or PR message names it
 - declined: `Declined YYYY-MM-DD: "<reason>"`; the entry stays and keeps counting.
 
 On a maintainer's clone, follow the repo's change rules: a branch, the `CLAUDE.md` architecture line for a new skill, the four version fields kept equal, and a PR. If the data folder is a git repo, point the user to `git diff`.

@@ -77,7 +77,7 @@ Seen: 1 occurrence. 2026-11-03 review N18
 
 ## Ready and declined
 
-An entry is **ready** at 2 or more occurrences, or, for a safety edit, at one severe occurrence. It leaves the ledger when built (`built: <path>`) or covered by something else.
+An entry is **ready** at 2 or more occurrences, or, for a safety edit, at one severe occurrence. It is removed from the ledger when built, and the commit or PR message names it, or when something else covers it.
 
 **Declines don't block for good.**
 
