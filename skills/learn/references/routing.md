@@ -23,16 +23,15 @@ The brief shows each lesson's pick, general or server, so the user can flip it.
 | How this user likes things done, as stated or confirmed by them | `~/.config/hsops/user.md` |
 | True for any homeserver | `~/.config/hsops/general/<skill>.md`, for the skill that was running when the lesson mattered |
 | A sighting of a lesson already on file | that lesson's line: add the occurrence to its tag, never a near-duplicate line |
-| A skill edit from one event | the skill's own files (see Maintainer mode), naming its event |
-| A skill candidate, or a severe candidate as a safety edit (unless that edit is written this session as an approved skill edit) | `~/.config/hsops/general/candidates.md`, the ledger |
+| A skill-edit candidate, a skill candidate, or a severe candidate as a safety edit | `~/.config/hsops/general/candidates.md`, the ledger |
 
 A ledger entry that already exists gets the new occurrence added to its `Seen:` line, keyed as in `## Occurrences`, rather than a second entry.
 
-Skill edits that come from a cluster of lessons are evolve's, not learn's. So are patterns, moves between files, new skills and pruning.
+Learn never edits a skill, even after one clear event: a skill edit changes behaviour for every user, so it waits in the ledger for a history of occurrences. Skill edits, patterns, moves between files, new skills and pruning are all evolve's.
 
 ## Maintainer mode
 
 The user is a maintainer when this skill's directory is inside a git checkout of hsops and not in a plugin cache: `git -C <skill dir> rev-parse --show-toplevel` succeeds, and the path doesn't contain `/cache/`.
 
-- **Maintainer:** general lessons and skill edits go straight into the suite file where they would have been read: any `SKILL.md` or reference (a setup phase, `add-service/references/apps/<app>.md`, a review dimension file, diagnose's common causes) or `shared/conventions.md`.
-- **Plugin user:** general lessons go to `general/`. Skill edits become an upstream draft, an issue or PR against the hsops repository (`repository` in `.claude-plugin/plugin.json`), created with `gh` only after the user approves.
+- **Maintainer:** general lessons go straight into the suite file where they would have been read: any `SKILL.md` or reference (a setup phase, `add-service/references/apps/<app>.md`, a review dimension file, diagnose's common causes) or `shared/conventions.md`. Evolve's approved skill edits land in the same files.
+- **Plugin user:** general lessons go to `general/`. Evolve's skill edits become an upstream draft, an issue or PR against the hsops repository (`repository` in `.claude-plugin/plugin.json`), created with `gh` only after the user approves.

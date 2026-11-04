@@ -22,10 +22,10 @@ List the candidates from this session. A **lesson** is something that would have
 Alongside new lessons, list:
 
 - **Sightings:** a lesson already on file that this session hit again or relied on. Record the occurrence on that line, never a near-duplicate.
-- **Skill-edit candidates:** a missing step or check, a request that should have loaded a skill and didn't, or a skill line proven wrong. Each names its event.
+- **Skill-edit candidates:** a missing step or check, a request that should have loaded a skill and didn't, or a skill line proven wrong. Each names its event and its target file. Learn never edits a skill: these go to the ledger, and evolve proposes them once they have a history.
 - **Skill candidates:** a job the user asked for, or a review item, that no skill owns.
 
-Record cost and risk as the learning formats say: pattern and skill candidates record `Cost:`, measured in the session, never estimated; a safety edit records `Severe:`, set only when data or access was at risk, plus `Cost:` when time was measured; a plain skill-edit candidate records `Cost:` when time was measured, and it's optional otherwise. A severe candidate also becomes a ledger safety edit, never a new-skill candidate, unless its safety edit is written this session as an approved skill edit; then it isn't logged.
+Record cost and risk as the learning formats say: pattern, skill and skill-edit candidates record `Cost:`, measured in the session, never estimated; a safety edit records `Severe:`, set only when data or access was at risk, plus `Cost:` when time was measured. A severe candidate becomes a ledger safety edit, never a new-skill candidate.
 
 Keep only what looking can't reveal: drop anything that one command shows, things done right by default, and one-off outages.
 
@@ -71,7 +71,7 @@ Write only what the user approves. If the data folder or the suite is a git repo
 
 ## 5. Offer to share upstream
 
-For each general lesson that would help every hsops user, offer to draft an issue or PR against the hsops repository (`repository` in `.claude-plugin/plugin.json`). The draft contains only the lesson and its reason. For a plugin user, each approved skill edit also becomes an upstream draft (see Maintainer mode in `references/routing.md`), naming its event. Create any draft with `gh` only after the user approves.
+For each general lesson that would help every hsops user, offer to draft an issue or PR against the hsops repository (`repository` in `.claude-plugin/plugin.json`). The draft contains only the lesson and its reason. Create it with `gh` only after the user approves. Skill edits are never drafted here; evolve drafts them once they are ready.
 
 ## 6. Point to evolve
 

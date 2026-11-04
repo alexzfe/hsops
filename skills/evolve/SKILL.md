@@ -31,7 +31,7 @@ Put each entry on the ladder at the lowest level that holds it.
 
   An entry that fails becomes a pattern for, or an edit to, the skill that owns the job.
 - **Safety edit:** goes where it prevents the problem: a check in a review dimension, a step in the skill that ran into it, a `tests/guard-cases.txt` line, or rarely a proposed fixed rule. Never a new skill. `Severe` never makes a pattern or a skill eligible.
-- **Pattern or skill:** eligible at 2 or more occurrences (formats); below that it stays in the ledger. A placed pattern that isn't eligible yet goes to the ledger as a `Pattern:` entry; that is where its reason is kept.
+- **Pattern, skill edit or skill:** eligible at 2 or more occurrences (formats); below that it stays in the ledger. A skill edit comes only from a ready `Skill edit:` ledger entry or a cluster, never from one session. A placed pattern that isn't eligible yet goes to the ledger as a `Pattern:` entry; that is where its reason is kept.
 
 **Done when:** each entry has a level and a target file, and each new skill has its trigger test written.
 

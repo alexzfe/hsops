@@ -28,7 +28,7 @@ codex plugin marketplace add alexzfe/hsops
 codex plugin add hsops@hsops
 ```
 
-**Developing hsops:** run it from your clone with `claude --plugin-dir /path/to/hsops`, or `codex plugin marketplace add /path/to/hsops`. In a clone, `/hsops:learn` writes general lessons and small skill edits straight into the suite, and `/hsops:evolve` writes patterns, skill edits and new skills.
+**Developing hsops:** run it from your clone with `claude --plugin-dir /path/to/hsops`, or `codex plugin marketplace add /path/to/hsops`. In a clone, `/hsops:learn` writes general lessons straight into the suite, and `/hsops:evolve` writes patterns, skill edits and new skills once they have a history.
 
 ## Getting started
 

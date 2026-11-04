@@ -26,12 +26,12 @@ A lesson stays one short line, with a sighting tag at the end:
 
 Two facts replace any notion of importance. Each is taken from the session.
 
-- **`Cost:`** the time an occurrence took, as measured in the session: `Cost: 9 min (plan agent rediscovered it)`, `Cost: 2 retries`. Pattern and skill candidates record Cost; a safety edit records Severe, plus Cost only when the occurrence took measurable time.
+- **`Cost:`** the time an occurrence took, as measured in the session: `Cost: 9 min (plan agent rediscovered it)`, `Cost: 2 retries`. Pattern, skill and skill-edit candidates record Cost; a safety edit records Severe, plus Cost only when the occurrence took measurable time.
 - **`Severe:`** set only when data or access was at risk, with its event: `Severe: a dying disk would have gone unnoticed`.
 
 They do different jobs, because **skills streamline; checks make things safe.** A new skill doesn't make a risk smaller; it makes a bumpy process smooth. Safety lives in the fixed rules, the hooks, the review dimensions and `fix`'s verify step.
 
-- **Patterns and new skills** are eligible on recurrence and cost alone: 2 or more occurrences, ordered by cost × occurrences. `Severe` never makes one eligible.
+- **Patterns, skill edits and new skills** are eligible on recurrence and cost alone: 2 or more occurrences, ordered by cost × occurrences. A skill edit changes behaviour for every user, so one session is never enough. `Severe` never makes one eligible.
 - **Safety edits** are eligible after one severe occurrence. `Severe` makes only a safety edit eligible. A safety edit is a skill edit that prevents the problem:
   - a check in a review dimension
   - a step in the skill that ran into it
@@ -57,7 +57,7 @@ Patterns hold general knowledge only. Machine-specific facts stay in `lessons.md
 
 ## Ledger
 
-`general/candidates.md` holds what is waiting to become a pattern, a skill or a safety edit:
+`general/candidates.md` holds what is waiting to become a pattern, a skill edit, a skill or a safety edit:
 
 ```
 ## Skill: rotate a leaked secret
@@ -69,6 +69,12 @@ Seen: 3 occurrences, 1 session. 2026-11-03 review N19, N18, N12
 Lessons: <server> "node-exporter merges a metric name across textfile files…"; <server> "a fake-alert test file must copy HELP and TYPE…"
 Cost: 15 min (a fake-alert test silently dropped samples)
 Seen: 2 occurrences, 2 sessions. 2026-11-01, 2026-11-03
+
+## Skill edit: add-service, dry-run before applying an .env change
+Target: skills/add-service/SKILL.md, the deploy step
+Event: changing a stack's .env recreated every service that loads it
+Cost: 10 min (an unplanned database restart, then checks)
+Seen: 1 occurrence. 2026-11-03
 
 ## Safety edit: credentials committed to git
 Severe: service API keys committed to tracked config files

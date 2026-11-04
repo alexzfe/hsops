@@ -113,18 +113,18 @@ Learn keeps one job: capture what this session taught.
 
 1. **Harvest** adds three candidate kinds to new lessons:
    - **Sightings:** a lesson on file this session hit again or relied on. Add the occurrence to its tag instead of a near-duplicate line.
-   - **Skill-edit candidates:** a missing step or check, a request that should have loaded a skill and didn't, or a skill line proven wrong. Each names its event.
+   - **Skill-edit candidates:** a missing step or check, a request that should have loaded a skill and didn't, or a skill line proven wrong. Each names its event and target file, and goes to the ledger as a `Skill edit:` entry; learn never edits a skill.
    - **Skill candidates:** a job the user asked for, or a review item, that no skill owns. These go to the ledger.
 
    Each candidate records its cost, and `Severe:` when data or access was at risk. A severe candidate also goes to the ledger as a safety edit. The evidence rule is unchanged.
-2. **Route.** The content test replaces "unsure → `lessons.md`": a lesson about how software behaves is general; one about this machine's paths, hardware or choices stays in `lessons.md`. A mixed lesson is split, the general part going up with its condition attached (for example, "some NVMe drives reject namespace 1 …"). Skill edits: on a maintainer's clone, edit the suite file directly (any `SKILL.md`, reference or `conventions.md`); for plugin users, draft an upstream issue or PR. Skill candidates go to the ledger.
+2. **Route.** The content test replaces "unsure → `lessons.md`": a lesson about how software behaves is general; one about this machine's paths, hardware or choices stays in `lessons.md`. A mixed lesson is split, the general part going up with its condition attached (for example, "some NVMe drives reject namespace 1 …"). Skill-edit candidates and skill candidates go to the ledger; evolve later edits the suite (on a maintainer's clone) or drafts upstream (for plugin users).
 3. **Refine** and 4. **Approve** as today. The brief adds sightings, skill edits and ledger entries, and shows each lesson's general-or-server pick so the user can flip it.
 5. **Upstream** unchanged.
 6. **Prune** moves to `evolve`.
 
 **New closing line:** when an entry is ready (a severe one included), or 3 or more lessons share a topic within one skill's job, learn says so in one line: *"Ready for /hsops:evolve: 'rotate a leaked secret' (3 occurrences, 25 min); a safety edit for secrets in git; 4 monitoring lessons cluster on SMART."*
 
-Small skill edits from a single event stay in learn, because they are clearest right after the session. Edits that come from a cluster of lessons belong to evolve.
+Learn never edits a skill. A skill edit changes behaviour for every user, so it needs a history: it waits in the ledger and evolve proposes it at 2 or more occurrences, like a pattern or a new skill. A severe safety edit is the one exception, eligible after one occurrence, and it too goes through evolve. (Changed 2026-11-03 after the first real learn run proposed skill edits from one session.)
 
 **Size:** learn is 81 lines. The routing table and the maintainer and plugin-user rules move to `skills/learn/references/routing.md`, keeping `SKILL.md` under 100.
 
@@ -176,7 +176,7 @@ Small skill edits from a single event stay in learn, because they are clearest r
   - add a sighting to an existing lesson the session hit, not write a near-duplicate line
   - route a new software-behavior lesson to general, and a machine-specific one to `lessons.md`, showing each pick in the brief
   - log a job with no skill to `candidates.md`, with its occurrences and cost
-  - name each skill-edit candidate's event, and edit the suite file directly on the clone
+  - log each skill-edit candidate to the ledger with its event, target file and cost, and edit no skill
   - end with the evolve pointer when an entry is ready
 - **Real-data evolve run:** the first `/hsops:evolve` on the maintainer's data folder, after the learn run, should at minimum:
   - promote the software-behavior lessons to general: `docker inspect` health templates, `ssh bash -s` and stdin, node-exporter textfile HELP/TYPE merging, AppArmor blocking D-Bus
