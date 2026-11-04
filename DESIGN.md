@@ -105,15 +105,15 @@ ECC still coordinates its reviewers for multi-angle reviews (`orch-review`). Its
 
 ## A ladder from lesson to new skill, with counts as eligibility and cost as order
 
-**Decision:**
-- Each learning takes the lowest level that holds it: a lesson, a pattern inside an existing skill's job, a skill edit, or a new skill. The line between a pattern and a new skill is the trigger, not size or frequency.
+**Decision:** each learning takes the lowest level that holds it: a lesson, a pattern inside an existing skill's job, a skill edit, or a new skill. The line between a pattern and a new skill is the trigger, not size or frequency.
+
 - Occurrence counts decide eligibility only: 2 or more for a pattern or a new skill. Cost, the time an occurrence took in the session, decides the order, as cost × occurrences, shown with the session spread.
 - `Severe` (data or access at risk) is eligible after one occurrence, and only for a safety edit: a check, a step, a guard case or, rarely, a proposed fixed rule. It never makes a pattern or a skill eligible.
 - Nothing decays with time. A lesson isn't less true for going unseen, so pruning rests on evidence.
-- A declined entry stays in the ledger and keeps counting. It is proposed again once 2 or more new occurrences arrive after the decline, with the earlier reason shown next to them.
+- A declined entry stays in the ledger and keeps counting. It is proposed again once 2 or more new occurrences arrive after the decline (or, for a safety edit, one new severe occurrence), with the earlier reason shown next to them.
 - There is no passive observer. No hook logs tool calls, and no background agent infers patterns from them.
 
-**Why:**
+**Why:** the five rules rest on separate reasons.
 
 - **Skills streamline and checks make things safe.** A new skill doesn't make a risk smaller; it makes a bumpy process smooth. Safety lives in the fixed rules, the hooks, the review dimensions and `fix`'s verify step, so `Severe` leads only to edits there.
 - **Counts rank badly.** A burst of cheap annoyances would outrank one rare, expensive event. Counts show that a problem recurs, and cost shows what it is worth fixing.

@@ -3,7 +3,7 @@
 **Version:** 0.6.0 | **Port:** none (a plugin, not a server) | **Stack:** Markdown skills, Python 3 stdlib hooks, Claude Code and Codex plugin manifests
 
 ## What
-hsops is a Claude Code and Codex plugin of homeserver skills: setup, deploy, diagnose, monitor, back up, review (whole server, quick and changes), fix and learn. Users install it from the marketplace. Contributors develop it from a clone. Nothing here runs as a service.
+hsops is a Claude Code and Codex plugin of homeserver skills: setup, deploy, diagnose, monitor, back up, review (whole server, quick and changes), fix, learn and evolve. Users install it from the marketplace. Contributors develop it from a clone. Nothing here runs as a service.
 
 ## Quick Start
 
