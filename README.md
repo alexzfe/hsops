@@ -28,7 +28,7 @@ codex plugin marketplace add alexzfe/hsops
 codex plugin add hsops@hsops
 ```
 
-**Developing hsops:** run it from your clone with `claude --plugin-dir /path/to/hsops`, or `codex plugin marketplace add /path/to/hsops`. In a clone, `/hsops:learn` writes general lessons straight into the suite.
+**Developing hsops:** run it from your clone with `claude --plugin-dir /path/to/hsops`, or `codex plugin marketplace add /path/to/hsops`. In a clone, `/hsops:learn` and `/hsops:evolve` write general lessons, patterns, skill edits and new skills straight into the suite.
 
 ## Getting started
 
@@ -50,6 +50,7 @@ From there it works through hardware checks, SSH, remote access, Docker, storage
 | `/hsops:review-changes` | A quick look at what a task just changed. Runs by itself after any task that changes the server. |
 | `/hsops:fix` | Carries out review recommendations: a plan for each, one approval, then one fix at a time with a check after each. |
 | `/hsops:learn` | Turns a session's surprises into lasting knowledge. |
+| `/hsops:evolve` | Turns repeated lessons into patterns, skill improvements and new skills. |
 
 hsops doesn't push a fixed stack. It asks about your needs and priorities, lays out the options with their tradeoffs, recommends one, and works with whatever you choose. A short list of fixed rules (in `shared/conventions.md`) protects your data and your access to the server.
 
