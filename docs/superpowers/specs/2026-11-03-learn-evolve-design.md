@@ -103,7 +103,7 @@ Proposed: data-safety dimension check for secrets in tracked files
 Seen: 1 occurrence. 2026-11-03 review N18
 ```
 
-An entry is **ready** at 2 or more occurrences, or, for a safety edit, at one severe occurrence. It leaves the ledger when built (`built: <path>`) or covered by something else.
+An entry is **ready** at 2 or more occurrences, or, for a safety edit, at one severe occurrence. It leaves the ledger when it is built or when something else covers it. When it is built, the commit or PR message names it.
 
 **Declines don't block for good.** A declined entry stays with `Declined YYYY-MM-DD: "<reason>"` and keeps counting, with occurrences before and since the decline shown apart. It is proposed again once 2 or more new occurrences arrive after the decline (or, for a safety edit, one new severe occurrence), with the earlier reason shown next to the new evidence. Time alone never re-proposes it. The user can ask for any declined entry at any time.
 
@@ -146,7 +146,7 @@ Small skill edits from a single event stay in learn, because they are clearest r
    - With subagents, each new-skill draft gets one independent `hsops:reviewer` pass before the brief. Patterns and edits don't, because the user reviews them in the diff.
    - On a maintainer's clone, drafts go into suite files on a branch. For plugin users, patterns go to `general/patterns/`, and skill edits and new skills become upstream drafts.
 5. **Approve.** A brief grouped as Promotions, Patterns, Skill edits, New skills and Prunes. Each item gets one line on why, with its cost or severe event and its count, then its diff. Then a short question.
-6. **Write and record.** Write only what is approved. Update the ledger with `built: <path>` or `Declined YYYY-MM-DD: "<reason>"`. On a clone, follow the repo's change rules: the `CLAUDE.md` architecture line for a new skill, the four version fields, a branch and a PR.
+6. **Write and record.** Write only what is approved. Update the ledger: a built entry is removed, and the commit or PR message names it; a declined one gets `Declined YYYY-MM-DD: "<reason>"`. On a clone, follow the repo's change rules: the `CLAUDE.md` architecture line for a new skill, the four version fields, a branch and a PR.
 
 **Done when:** every gathered entry is written, declined, or left with its reason ("1 occurrence, cost 3 min: waiting").
 
