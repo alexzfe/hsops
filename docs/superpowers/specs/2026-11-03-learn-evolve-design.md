@@ -165,7 +165,13 @@ Small skill edits from a single event stay in learn, because they are clearest r
 - Line limits: `learn/SKILL.md` and `evolve/SKILL.md` under ~100 lines; references under ~150.
 - Both skills' descriptions start with "Use when…" and list triggers only.
 - A read-through of learn then evolve, end to end.
-- **Real-data run:** the first `/hsops:evolve` on the maintainer's data folder should, at minimum:
+- **Real-data learn run:** `/hsops:learn` at the end of a real homeserver session, before the evolve run, should at minimum:
+  - add a sighting to an existing lesson the session hit, not write a near-duplicate line
+  - route a new software-behavior lesson to general, and a machine-specific one to `lessons.md`, showing each pick in the brief
+  - log a job with no skill to `candidates.md`, with its occurrences and impact
+  - name each skill-edit candidate's event, and edit the suite file directly on the clone
+  - end with the evolve pointer when an entry is ready
+- **Real-data evolve run:** the first `/hsops:evolve` on the maintainer's data folder, after the learn run, should at minimum:
   - promote the software-behavior lessons to general: `docker inspect` health templates, `ssh bash -s` and stdin, node-exporter textfile HELP/TYPE merging, AppArmor blocking D-Bus
   - keep the machine-specific ones in `lessons.md`: a directory that looks like a mount, the deployment type of one app, the LAN fallback for SSH
   - split the NVMe namespace lesson into a general rule with its condition, and the drive model
@@ -174,4 +180,4 @@ Small skill edits from a single event stay in learn, because they are clearest r
 
 ## Rollout
 
-One PR on branch `learn-evolve`. After merge, the first `/hsops:evolve` run is the acceptance test on real data.
+One PR on branch `learn-evolve`. After merge, the acceptance test on real data is a `/hsops:learn` run at the end of a homeserver session, then the first `/hsops:evolve` run.
