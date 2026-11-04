@@ -8,7 +8,7 @@ Decide each lesson by what it is about, not by how sure you feel:
 
 - **How software behaves** (a tool, a daemon, a file format, a hardware class): general.
 - **This machine's paths, hardware, layout or choices:** the server's `lessons.md`.
-- **Mixed:** split it. The general part goes up with its condition attached, and the machine's part stays in `lessons.md`. For example, "some NVMe drives reject namespace 1 for self-tests; address the controller instead" is general, while "this server's data disk is one of them" stays on the server.
+- **Mixed:** split it. The general part goes up with its condition attached, and the machine's part stays in `lessons.md`. For example, "some NVMe drives reject namespace 1 for self-tests; use the broadcast namespace (-d nvme,0xffffffff)" is general, while "this server's data disk is one of them" stays on the server.
 
 Strip hostnames, IPs, serials, usernames and personal paths from anything general; write `<server>` where a name is needed.
 

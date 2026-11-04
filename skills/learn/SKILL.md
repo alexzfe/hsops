@@ -25,7 +25,7 @@ Alongside new lessons, list:
 - **Skill-edit candidates:** a missing step or check, a request that should have loaded a skill and didn't, or a skill line proven wrong. Each names its event.
 - **Skill candidates:** a job the user asked for, or a review item, that no skill owns.
 
-Each candidate records its `Cost:`, measured in the session, never estimated, and `Severe:` when data or access was at risk. A severe candidate also becomes a ledger safety edit, never a new-skill candidate.
+Record cost and risk as the learning formats say: pattern and skill candidates record `Cost:`, measured in the session, never estimated; a safety edit records `Severe:`, set only when data or access was at risk, plus `Cost:` when time was measured. A severe candidate also becomes a ledger safety edit, never a new-skill candidate.
 
 Keep only what looking can't reveal: drop anything that one command shows, things done right by default, and one-off outages.
 
@@ -71,12 +71,12 @@ Write only what the user approves. If the data folder or the suite is a git repo
 
 ## 5. Offer to share upstream
 
-For each general lesson that would help every hsops user, offer to draft an issue or PR against the hsops repository (`repository` in `.claude-plugin/plugin.json`). The draft contains only the lesson and its reason. Create it with `gh` only after the user approves.
+For each general lesson that would help every hsops user, offer to draft an issue or PR against the hsops repository (`repository` in `.claude-plugin/plugin.json`). The draft contains only the lesson and its reason. For a plugin user, each approved skill edit also becomes an upstream draft (see Maintainer mode in `references/routing.md`), naming its event. Create any draft with `gh` only after the user approves.
 
 ## 6. Point to evolve
 
 When the ledger has a ready entry (see `## Ready and declined` in the learning formats), a severe one included, or 3 or more lessons share a topic within one skill's job, end with one line naming each, with its counts and cost:
 
-`Ready for /hsops:evolve: 'rotate a leaked secret' (3 occurrences, 25 min); a safety edit for secrets in git; 4 monitoring lessons cluster on SMART.`
+`Ready for /hsops:evolve: 'rotate a leaked secret' (3 occurrences, 1 session, 25 min); a safety edit for secrets in git; 4 monitoring lessons cluster on SMART.`
 
 **Done when:** every harvested candidate has been written, logged, shared or declined by the user.
