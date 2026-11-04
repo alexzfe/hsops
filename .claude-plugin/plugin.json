@@ -10,6 +10,7 @@
   "repository": "https://github.com/alexzfe/hsops",
   "documentationUrl": "https://github.com/alexzfe/hsops#readme",
   "supportUrl": "https://github.com/alexzfe/hsops/issues",
+  "privacyPolicyUrl": "https://github.com/alexzfe/hsops#privacy",
   "license": "MIT",
   "keywords": ["homeserver", "homelab", "self-hosting", "docker", "sysadmin"],
   "skills": ["./skills/"]

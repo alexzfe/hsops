@@ -56,7 +56,7 @@ hsops doesn't push a fixed stack. It asks about your needs and priorities, lays 
 
 ## Hooks
 
-hsops ships two hooks that back up its rules. They need `python3` on your workstation.
+hsops ships two hooks that back up its rules. They need `python3` on your workstation. Both are short Python scripts in `hooks/` that use only the standard library. They read the command or file write Claude is about to make, return allow, ask or deny, and make no network connections.
 
 The **guard hook** watches disruptive commands, both on the server (inside `ssh`) and on block devices on your workstation:
 
@@ -86,6 +86,15 @@ servers/<name>/
 ```
 
 Setup offers to make this folder a git repo. hsops runs on your workstation and reaches the server over SSH. It was designed with Herdr (a terminal multiplexer for coding agents) in mind, and works without it.
+
+## Privacy
+
+hsops has no service and collects nothing. It sends no data anywhere: no telemetry, no accounts, no network calls from its hooks.
+
+- **What it stores:** the files above, on your machine only. A server profile can include hostnames, usernames and the services you run. `user.md` holds your experience level and preferences.
+- **What it reads:** while a skill is working, Claude reads your server's logs, configs and command output over SSH. These can contain personal data, such as emails in a mail log. Only the notes hsops writes to the files above are kept.
+- **Where data goes:** what Claude reads is part of your Claude Code or Codex session and is handled under that product's own privacy terms. If you set up alerts with the monitoring skill (ntfy, Discord, email), your server sends them, not hsops.
+- **Deleting it:** remove `~/.config/hsops/`, or one server's folder in it.
 
 ## Background
 
