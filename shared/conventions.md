@@ -15,6 +15,10 @@ Everything hsops knows about the user and their servers lives in `~/.config/hsop
   - `lessons.md`: what this particular server has taught.
   - `changelog.md`: one dated line per change made.
   - `reviews/YYYY-MM-DD.md`: saved reviews, with the status of each recommendation.
+  - `plans/YYYY-MM-DD-<topic>.md`: multi-session plans the user asked to save, with the status of each step.
+  - `backlog.md`: where outstanding work lives. It holds only pointers: one line for the current review file and one line per unfinished plan. Item and step statuses stay in those files, never copied here. A skill that saves a review or a plan updates this file in the same step. A plan whose last step is done drops off it.
+
+When the user asks what's next, what's left or what's open, start from `backlog.md`. List every `open` and `failed` item from the review it names, grouped by the priorities in `profile.md`, then each unfinished plan with its next step. Recommend one item to start with. Don't change anything until the user picks; carrying out review items is the `fix` skill's job. Answer from these files, never from past conversations.
 
 Picking the server: one folder → use it. Several → the one the conversation names, else ask. None → run `setup`.
 

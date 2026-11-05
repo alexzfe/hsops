@@ -83,6 +83,16 @@ ECC still coordinates its reviewers for multi-angle reviews (`orch-review`). Its
 
 **The cost:** a regression from a low-risk fix may only show in the closing review, where it's harder to trace to one fix. The plans' Touches lists narrow it down. `quick-review` also skips tuning, power and long-term upkeep, which is why it names the dimensions it didn't cover. A plain "review my server" now starts the eight agents, so it stays the expensive path.
 
+## A backlog file of pointers, not a "what's next" skill
+
+**Decision:** `servers/<server>/backlog.md` names the current review file and each unfinished plan. The conventions say to answer "what's next" from it. No skill is triggered by that question.
+
+**Why:** a fresh session asked "what's next" went to past conversations and a saved plan, and missed the open items in the review file, because nothing named the review file as the backlog. An obvious file name fixes that choice. Routing the question to `fix` would start a plan-and-approve flow when the user only asked a question. A separate read-only skill would add another description to every session for a single lookup.
+
+**Why pointers only:** copying statuses into `backlog.md` would drift from the review file, which is the reason quick reviews append to it (see above).
+
+**The cost:** a session that never opens the data folder still won't find the file. If that happens, the next step is a small read-only skill that reads `backlog.md`.
+
 ## The evidence hook forces facts instead of only matching hedge words
 
 **Decision:** the evidence hook (`hooks/evidence.py`) denies the first write to each data-folder file in a session, with questions for that kind of file: the evidence for each line, the user's words for each preference in `user.md`, and the event behind each general lesson. The retry runs. Separately, any write with hedge phrases ("not verified", "probably", "I think") is denied once.

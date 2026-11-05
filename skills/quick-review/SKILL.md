@@ -52,6 +52,6 @@ Report only real problems, in this shape:
 
 Write each finding as: **title**, evidence, the suggested change, which skill carries it out, and effort (S, M or L). When nothing is wrong, say so in a line. When a finding needs a closer look, name the dimension to run with `review`.
 
-Append the report to the newest file in `reviews/` under a dated `## Quick review` heading, because `fix` and the next review read only that file. New findings continue its numbering and are marked `open`. Regressed items become `failed: <check that failed>`. Leave every other status alone. With no review file yet, start `reviews/YYYY-MM-DD.md`.
+Append the report to the newest file in `reviews/` under a dated `## Quick review` heading, because `fix` and the next review read only that file. New findings continue its numbering and are marked `open`. Regressed items become `failed: <check that failed>`. Leave every other status alone. With no review file yet, start `reviews/YYYY-MM-DD.md` and point the review line in `backlog.md` at it (conventions).
 
 **Done when:** the report has been presented and saved.

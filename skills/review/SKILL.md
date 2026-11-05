@@ -71,7 +71,7 @@ Priorities: <...>   Dimensions: <...>
 
 Write each finding as: **title**, the dimensions that raised it, evidence, the suggested change, which skill carries it out, and effort (S, M or L).
 
-Save it to `servers/<server>/reviews/YYYY-MM-DD.md`, with every recommendation marked `open`. Later statuses are `done`, `declined: <reason>` and `failed: <check that failed>`.
+Save it to `servers/<server>/reviews/YYYY-MM-DD.md`, with every recommendation marked `open`. Later statuses are `done`, `declined: <reason>` and `failed: <check that failed>`. Point the review line in `backlog.md` at the new file (conventions).
 
 **Done when:** the report has been presented and saved.
 
